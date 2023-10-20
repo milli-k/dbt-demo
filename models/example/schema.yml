@@ -4,3 +4,6 @@ version: 2
 models:
     - name: updated_orders
       description: "An updated orders table"
+      columns:
+          - name: test_field
+            description: "This is my test field"
