@@ -5,5 +5,5 @@ models:
     - name: updated_orders
       description: "An updated orders table"
       columns:
-          - name: test_field
-            description: "This is my test field"
+          - name: months_since_signup
+            description: "Months from user signup to ordering of this order_item"
