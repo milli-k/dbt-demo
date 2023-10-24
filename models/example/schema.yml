@@ -2,8 +2,8 @@
 version: 2
 
 models:
-    - name: updated_orders
-      description: "An updated orders table"
+    - name: order_items
+      description: "An updated order items table"
       columns:
           - name: months_since_signup
             description: "Months from user signup to ordering of this order_item"
