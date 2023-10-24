@@ -7,3 +7,5 @@ models:
       columns:
           - name: months_since_signup
             description: "Months from user signup to ordering of this order_item"
+    - name: sessions
+      description: "Sessionizes raw event data"
