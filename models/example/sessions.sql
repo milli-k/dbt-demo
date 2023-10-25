@@ -25,6 +25,7 @@ GROUP BY 1,2
 
 SELECT "sessions"."SESSION_ID" AS "session_id",
         "sessions"."USER_ID" AS "user_id",
+        "sessions"."USER_ID" + 1 as "id_plus_one",
         "sessions"."SESSION_START" AS "session_start",
         "sessions"."SESSION_END" AS "session_end",
         "sessions"."TOTAL_EVENTS" AS "events_in_sessions",
