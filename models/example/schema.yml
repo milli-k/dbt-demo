@@ -1,15 +1,19 @@
-
 version: 2
 
 models:
-    - name: order_items
-      description: "An updated order items table"
-      columns:
-          - name: months_since_signup
-            description: "Months from user signup to ordering of this order_item"
-          - name: time_to_ship
-            description: "Days from order created to ship date of this order_item"
-          - name: id_plus_one
-            description: "This is a test description"
-    - name: sessions
-      description: "Sessionizes raw event data"
+  - name: order_items
+    description: "An updated order items table"
+    columns:
+      - name: months_since_signup
+        description: "Months from user signup to ordering of this order_item"
+      - name: time_to_ship
+        description: "Days from order created to ship date of this order_item"
+      - name: id_plus_one
+        description: "This is a test description"
+  - name: sessions
+    description: "Sessionizes raw event data"
+  - name: demo_sessions
+    description: copy of sessions for demo
+    columns:
+      - name: sessions_session_id
+        description: "Example of a description"
