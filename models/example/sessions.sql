@@ -1,7 +1,7 @@
 WITH "sessions" AS (SELECT *
         FROM (WITH events_plus AS (
   SELECT
-    id 
+    id +1 
     , session_id
     , created_at
     , event_type
