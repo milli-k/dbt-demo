@@ -12,4 +12,9 @@ models:
         description: "This is a test description"
   - name: sessions
     description: "Sessionizes raw event data"
+  - name: sessions_demo
+    description: copy of sessions for demo
+    columns:
+      - name: sessions_session_id
+        description: "Example of a description"
 
