@@ -1,4 +1,5 @@
 SELECT "order_items"."ID"  AS "id",
+        "order_items"."ID" + 1 as "id_plus_one"
     "order_items"."ORDER_ID" AS "order_id",
     "order_items"."USER_ID" AS "user_id",
     "order_items"."INVENTORY_ITEM_ID" AS "inventory_item_id",
