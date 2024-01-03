@@ -7,7 +7,7 @@ WITH "sessions" AS (SELECT *
     , event_type
     , FIRST_VALUE(user_id) OVER (PARTITION BY session_id ORDER BY created_at asc) AS user_id
   
-  FROM events
+  FROM ecomm.public.events
 )
 SELECT
   session_id
@@ -41,4 +41,4 @@ SELECT "sessions"."SESSION_ID" AS "session_id",
         "sessions"."ADD_TO_CART_EVENTS" > 0 AS "had_add_to_cart_event",
         "sessions"."PURCHASE_EVENTS" > 0 AS "had_purchase_event"
     FROM "sessions"
-        LEFT JOIN "USERS" AS "users" ON "sessions"."USER_ID" = "users"."ID"
+        LEFT JOIN ecomm.public."USERS" AS "users" ON "sessions"."USER_ID" = "users"."ID"
