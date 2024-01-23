@@ -9,7 +9,7 @@ models:
       - name: time_to_ship
         description: "Days from order created to ship date of this order_item"
       - name: id_plus_one
-        description: "This is a test description"
+        description: "This is a test description!"
   - name: sessions
     description: "Sessionizes raw event data"
     columns:
