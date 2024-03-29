@@ -17,6 +17,4 @@ models:
         description: "Duration of the session in seconds"
       - name: duration_minutes
         description: "Duration of the session in minutes"
-      - name: had_add_to_cart_event
-        description: "Clicked add to cart in product"
 
