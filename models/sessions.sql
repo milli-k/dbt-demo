@@ -1,3 +1,5 @@
+{{ config(materialized='table') }}
+
 WITH "sessions" AS (SELECT *
         FROM (WITH events_plus AS (
   SELECT
@@ -41,4 +43,4 @@ SELECT "sessions"."SESSION_ID" AS "session_id",
         "sessions"."ADD_TO_CART_EVENTS" > 0 AS "had_add_to_cart_event",
         "sessions"."PURCHASE_EVENTS" > 0 AS "had_purchase_event"
     FROM "sessions"
-        LEFT JOIN ecomm.public."USERS" AS "users" ON "sessions"."USER_ID" = "users"."ID"
+        LEFT JOIN ecomm.public.users AS "users" ON "sessions"."USER_ID" = "users"."ID"
