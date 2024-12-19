@@ -1,5 +1,28 @@
 {{ config(alias='products') }}
 
-select
-  {{ dbt_utils.star(source('ecomm', 'products')) }}
-from {{ source('ecomm', 'products') }}
+with 
+
+source as (
+
+    select * from {{ source('ecomm', 'products') }}
+
+),
+
+renamed as (
+
+    select
+        id,
+        cost,
+        category,
+        name,
+        brand,
+        retail_price,
+        department,
+        sku,
+        distribution_center_id
+
+    from source
+
+)
+
+select * from renamed
