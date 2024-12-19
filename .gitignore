@@ -2,5 +2,4 @@
 target/
 dbt_packages/
 logs/
-package-lock.yml
 analyses/generate_model_yaml.sql
