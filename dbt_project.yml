@@ -28,8 +28,6 @@ clean-targets:         # directories to be removed by `dbt clean`
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
 models:
   demo_dbt_snowflake:
-    staging:
-      +schema: staging
     ecomm:
       +schema: ecomm
 
