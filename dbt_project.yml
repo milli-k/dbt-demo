@@ -29,9 +29,7 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   demo_dbt_snowflake:
     staging:
-      +database: staging
-      +schema: default
-      ecomm:
-        +database: staging
-        +schema: ecomm_source
+      +schema: staging
+    ecomm:
+      +schema: ecomm
 
