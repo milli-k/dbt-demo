@@ -1,0 +1,12 @@
+select
+    date(date_trunc('MONTH', created_at)) as month,
+    coalesce(sum(sale_price), 0) as total_sale_price,
+    round(
+        (total_sale_price - lag(total_sale_price, 1) over (order by month))
+        / lag(total_sale_price, 1) over (order by month),
+        2
+    ) as mom_change
+from {{ ref('dim_ecomm__orders') }} as order_items
+where not status = 'Returned' or status is null
+group by 1
+order by 1 desc
