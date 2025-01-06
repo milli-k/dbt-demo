@@ -4,13 +4,13 @@ select
     last_name,
     email,
     case
-        when users.age < 17
-        then users.age + 1 + mod(users.id, 89)
-        when users.age < 34
-        then users.age + mod(users.id, 5)
-        when users.age < 77
-        then users.age - mod(users.id, 18)
-        else users.age - mod(users.id, 12)
+        when age < 17
+        then age + 1 + mod(id, 89)
+        when age < 34
+        then age + mod(id, 5)
+        when age < 77
+        then age - mod(id, 18)
+        else age - mod(id, 12)
     end as age,
     city,
     state,
