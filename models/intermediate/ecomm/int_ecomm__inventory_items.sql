@@ -17,7 +17,7 @@ select
     product_department,
     product_sku,
     product_distribution_center_id
-from {{ ref("inventory_items") }}
+from {{ ref("stg_ecomm__inventory_items") }}
 where
     1 = 1
     and timestampadd(year, extract(year, current_date()) - 2022, created_at)

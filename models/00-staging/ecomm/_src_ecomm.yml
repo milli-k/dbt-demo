@@ -4,7 +4,7 @@ sources:
   - name: ecomm
     database: ecomm_source
     schema: public
-    tables:
+    tables: 
       - name: distribution_centers
       - name: events
       - name: inventory_items
