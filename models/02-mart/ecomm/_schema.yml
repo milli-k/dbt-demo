@@ -1,0 +1,425 @@
+version: 2
+
+models:
+  - name: dim_ecomm__distribution_centers
+    description: ""
+    columns:
+      - name: id
+        data_type: number
+        description: ""
+
+      - name: name
+        data_type: varchar
+        description: ""
+
+      - name: latitude
+        data_type: float
+        description: ""
+
+      - name: longitude
+        data_type: float
+        description: ""
+
+  - name: dim_ecomm__events
+    description: ""
+    columns:
+      - name: id
+        data_type: number
+        description: ""
+
+      - name: sequence_number
+        data_type: number
+        description: ""
+
+      - name: session_id
+        data_type: varchar
+        description: ""
+
+      - name: created_at
+        data_type: timestamp_ntz
+        description: ""
+
+      - name: ip_address
+        data_type: varchar
+        description: ""
+
+      - name: city
+        data_type: varchar
+        description: ""
+
+      - name: state
+        data_type: varchar
+        description: ""
+
+      - name: country
+        data_type: varchar
+        description: ""
+
+      - name: zip
+        data_type: varchar
+        description: ""
+
+      - name: latitude
+        data_type: float
+        description: ""
+
+      - name: longitude
+        data_type: float
+        description: ""
+
+      - name: os
+        data_type: varchar
+        description: ""
+
+      - name: browser
+        data_type: varchar
+        description: ""
+
+      - name: traffic_source
+        data_type: varchar
+        description: ""
+
+      - name: user_id
+        data_type: number
+        description: ""
+
+      - name: uri
+        data_type: varchar
+        description: ""
+
+      - name: event_type
+        data_type: varchar
+        description: ""
+
+      - name: ad_event_id
+        data_type: number
+        description: ""
+
+      - name: referrer_code
+        data_type: varchar
+        description: ""
+
+  - name: dim_ecomm__inventory_items
+    description: ""
+    columns:
+      - name: id
+        data_type: number
+        description: ""
+
+      - name: product_id
+        data_type: number
+        description: ""
+
+      - name: created_at
+        data_type: timestamp_ntz
+        description: ""
+
+      - name: sold_at
+        data_type: timestamp_ntz
+        description: ""
+
+      - name: cost
+        data_type: float
+        description: ""
+
+      - name: product_category
+        data_type: varchar
+        description: ""
+
+      - name: product_name
+        data_type: varchar
+        description: ""
+
+      - name: product_brand
+        data_type: varchar
+        description: ""
+
+      - name: product_retail_price
+        data_type: float
+        description: ""
+
+      - name: product_department
+        data_type: varchar
+        description: ""
+
+      - name: product_sku
+        data_type: varchar
+        description: ""
+
+      - name: product_distribution_center_id
+        data_type: number
+        description: ""
+
+  - name: dim_ecomm__orders
+    description: ""
+    columns:
+      - name: id
+        data_type: number
+        description: ""
+
+      - name: order_id
+        data_type: number
+        description: ""
+
+      - name: user_id
+        data_type: number
+        description: ""
+
+      - name: inventory_item_id
+        data_type: number
+        description: ""
+
+      - name: sale_price
+        data_type: float
+        description: ""
+
+      - name: status
+        data_type: varchar
+        description: ""
+
+      - name: created_at
+        data_type: timestamp_ntz
+        description: ""
+
+      - name: returned_at
+        data_type: timestamp_ntz
+        description: ""
+
+      - name: shipped_at
+        data_type: timestamp_ntz
+        description: ""
+
+      - name: delivered_at
+        data_type: timestamp_ntz
+        description: ""
+
+      - name: is_returned
+        data_type: boolean
+        description: ""
+
+      - name: is_delivered
+        data_type: boolean
+        description: ""
+
+      - name: is_shipped
+        data_type: boolean
+        description: ""
+
+      - name: margin
+        data_type: float
+        description: ""
+
+      - name: months_since_signup
+        data_type: number
+        description: ""
+
+      - name: time_to_ship
+        data_type: number
+        description: ""
+
+      - name: upper_case_status
+        data_type: varchar
+        description: ""
+
+  - name: dim_ecomm__products
+    description: ""
+    columns:
+      - name: id
+        data_type: number
+        description: ""
+
+      - name: cost
+        data_type: float
+        description: ""
+
+      - name: category
+        data_type: varchar
+        description: ""
+
+      - name: name
+        data_type: varchar
+        description: ""
+
+      - name: brand
+        data_type: varchar
+        description: ""
+
+      - name: retail_price
+        data_type: float
+        description: ""
+
+      - name: department
+        data_type: varchar
+        description: ""
+
+      - name: sku
+        data_type: varchar
+        description: ""
+
+      - name: distribution_center_id
+        data_type: number
+        description: ""
+
+  - name: dim_ecomm__users
+    description: ""
+    columns:
+      - name: id
+        data_type: number
+        description: ""
+
+      - name: first_name
+        data_type: varchar
+        description: ""
+
+      - name: last_name
+        data_type: varchar
+        description: ""
+
+      - name: email
+        data_type: varchar
+        description: ""
+
+      - name: age
+        data_type: number
+        description: ""
+
+      - name: city
+        data_type: varchar
+        description: ""
+
+      - name: state
+        data_type: varchar
+        description: ""
+
+      - name: country
+        data_type: varchar
+        description: ""
+
+      - name: zip
+        data_type: varchar
+        description: ""
+
+      - name: latitude
+        data_type: float
+        description: ""
+
+      - name: longitude
+        data_type: float
+        description: ""
+
+      - name: gender
+        data_type: varchar
+        description: ""
+
+      - name: created_at
+        data_type: timestamp_ntz
+        description: ""
+
+      - name: traffic_source
+        data_type: varchar
+        description: ""
+
+  - name: fct_ecomm__order_items_agg
+    description: ""
+    columns:
+      - name: order_id
+        data_type: number
+        description: ""
+
+      - name: user_id
+        data_type: number
+        description: ""
+
+      - name: total_sale_price
+        data_type: float
+        description: ""
+
+      - name: count
+        data_type: number
+        description: ""
+
+  - name: fct_ecomm__monthly_sales_overview
+    description: ""
+    columns:
+      - name: month
+        data_type: date
+        description: ""
+
+      - name: total_sale_price
+        data_type: float
+        description: ""
+
+      - name: mom_change
+        data_type: float
+        description: ""
+
+  - name: mrt_ecomm__sessions
+    description: ""
+    columns:
+      - name: session_id
+        data_type: varchar
+        description: ""
+
+      - name: user_id
+        data_type: number
+        description: ""
+
+      - name: session_start
+        data_type: timestamp_ntz
+        description: ""
+
+      - name: session_end
+        data_type: timestamp_ntz
+        description: ""
+
+      - name: events_in_sessions
+        data_type: number
+        description: ""
+
+      - name: duration
+        data_type: number
+        description: ""
+
+      - name: months_since_created
+        data_type: number
+        description: ""
+
+      - name: duration_minutes
+        data_type: number
+        description: ""
+
+      - name: add_to_cart_events
+        data_type: number
+        description: ""
+
+      - name: viewed_product_events
+        data_type: number
+        description: ""
+
+      - name: purchase_events
+        data_type: number
+        description: ""
+
+      - name: login_events
+        data_type: number
+        description: ""
+
+      - name: is_abandoned_cart
+        data_type: boolean
+        description: ""
+
+      - name: had_login_event
+        data_type: boolean
+        description: ""
+
+      - name: had_viewed_product_event
+        data_type: boolean
+        description: ""
+
+      - name: had_add_to_cart_event
+        data_type: boolean
+        description: ""
+
+      - name: had_purchase_event
+        data_type: boolean
+        description: ""
