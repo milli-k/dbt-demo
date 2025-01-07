@@ -2,4 +2,3 @@
 target/
 dbt_packages/
 logs/
-analyses/generate_model_yaml.sql
