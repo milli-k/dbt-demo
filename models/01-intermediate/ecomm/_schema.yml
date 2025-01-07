@@ -2,233 +2,182 @@ version: 2
 
 models:
   - name: int_ecomm__events
-    description: ""
+    description: "Intermediate table containing detailed event data for ecommerce interactions"
     columns:
       - name: id
         data_type: number
-        description: ""
-
+        description: "Unique identifier for each event"
       - name: sequence_number
         data_type: number
-        description: ""
-
+        description: "Order of events within a session"
       - name: session_id
         data_type: varchar
-        description: ""
-
+        description: "Identifier for the user session"
       - name: created_at
         data_type: timestamp_ntz
-        description: ""
-
+        description: "Timestamp when the event occurred"
       - name: ip_address
         data_type: varchar
-        description: ""
-
+        description: "IP address of the user"
       - name: city
         data_type: varchar
-        description: ""
-
+        description: "City where the event originated"
       - name: state
         data_type: varchar
-        description: ""
-
+        description: "State where the event originated"
       - name: country
         data_type: varchar
-        description: ""
-
+        description: "Country where the event originated"
       - name: zip
         data_type: varchar
-        description: ""
-
+        description: "ZIP code where the event originated"
       - name: latitude
         data_type: float
-        description: ""
-
+        description: "Geographical latitude of the event location"
       - name: longitude
         data_type: float
-        description: ""
-
+        description: "Geographical longitude of the event location"
       - name: os
         data_type: varchar
-        description: ""
-
+        description: "Operating system of the user's device"
       - name: browser
         data_type: varchar
-        description: ""
-
+        description: "Web browser used by the user"
       - name: traffic_source
         data_type: varchar
-        description: ""
-
+        description: "Source of the traffic (e.g., organic, paid)"
       - name: user_id
         data_type: number
-        description: ""
-
+        description: "Identifier of the user who triggered the event"
       - name: uri
         data_type: varchar
-        description: ""
-
+        description: "URI of the page where the event occurred"
       - name: event_type
         data_type: varchar
-        description: ""
-
+        description: "Type of event (e.g., view, add to cart, purchase)"
       - name: ad_event_id
         data_type: number
-        description: ""
-
+        description: "Identifier for advertising-related events"
       - name: referrer_code
         data_type: varchar
-        description: ""
+        description: "Code identifying the referrer of the event"
 
   - name: int_ecomm__users
-    description: ""
+    description: "Intermediate table containing detailed user information for ecommerce platform"
     columns:
       - name: id
         data_type: number
-        description: ""
-
+        description: "Unique identifier for each user"
       - name: first_name
         data_type: varchar
-        description: ""
-
+        description: "First name of the user"
       - name: last_name
         data_type: varchar
-        description: ""
-
+        description: "Last name of the user"
       - name: email
         data_type: varchar
-        description: ""
-
+        description: "Email address of the user"
       - name: age
         data_type: number
-        description: ""
-
+        description: "Age of the user"
       - name: city
         data_type: varchar
-        description: ""
-
+        description: "City where the user is located"
       - name: state
         data_type: varchar
-        description: ""
-
+        description: "State where the user is located"
       - name: country
         data_type: varchar
-        description: ""
-
+        description: "Country where the user is located"
       - name: zip
         data_type: varchar
-        description: ""
-
+        description: "ZIP code of the user's location"
       - name: latitude
         data_type: float
-        description: ""
-
+        description: "Geographical latitude of the user's location"
       - name: longitude
         data_type: float
-        description: ""
-
+        description: "Geographical longitude of the user's location"
       - name: gender
         data_type: varchar
-        description: ""
-
+        description: "Gender of the user"
       - name: created_at
         data_type: timestamp_ntz
-        description: ""
-
+        description: "Timestamp when the user account was created"
       - name: traffic_source
         data_type: varchar
-        description: ""
+        description: "Source of traffic that led to user signup"
 
   - name: int_ecomm__inventory_items
-    description: ""
+    description: "Intermediate table containing detailed inventory item information"
     columns:
       - name: id
         data_type: number
-        description: ""
-
+        description: "Unique identifier for each inventory item"
       - name: product_id
         data_type: number
-        description: ""
-
+        description: "Identifier of the associated product"
       - name: created_at
         data_type: timestamp_ntz
-        description: ""
-
+        description: "Timestamp when the inventory item was created"
       - name: sold_at
         data_type: timestamp_ntz
-        description: ""
-
+        description: "Timestamp when the item was sold"
       - name: cost
         data_type: float
-        description: ""
-
+        description: "Cost of the inventory item"
       - name: product_category
         data_type: varchar
-        description: ""
-
+        description: "Category of the product"
       - name: product_name
         data_type: varchar
-        description: ""
-
+        description: "Name of the product"
       - name: product_brand
         data_type: varchar
-        description: ""
-
+        description: "Brand of the product"
       - name: product_retail_price
         data_type: float
-        description: ""
-
+        description: "Retail price of the product"
       - name: product_department
         data_type: varchar
-        description: ""
-
+        description: "Department the product belongs to"
       - name: product_sku
         data_type: varchar
-        description: ""
-
+        description: "Stock Keeping Unit of the product"
       - name: product_distribution_center_id
         data_type: number
-        description: ""
+        description: "Identifier of the distribution center for the product"
 
   - name: int_ecomm__order_items
-    description: ""
+    description: "Intermediate table containing detailed order item information"
     columns:
       - name: id
         data_type: number
-        description: ""
-
+        description: "Unique identifier for each order item"
       - name: order_id
         data_type: number
-        description: ""
-
+        description: "Identifier for the order"
       - name: user_id
         data_type: number
-        description: ""
-
+        description: "Identifier of the user who placed the order"
       - name: inventory_item_id
         data_type: number
-        description: ""
-
+        description: "Identifier of the inventory item in the order"
       - name: sale_price
         data_type: float
-        description: ""
-
+        description: "Price at which the item was sold"
       - name: status
         data_type: varchar
-        description: ""
-
+        description: "Current status of the order item"
       - name: created_at
         data_type: timestamp_ntz
-        description: ""
-
+        description: "Timestamp when the order item was created"
       - name: returned_at
         data_type: timestamp_ntz
-        description: ""
-
+        description: "Timestamp when the order item was returned (if applicable)"
       - name: shipped_at
         data_type: timestamp_ntz
-        description: ""
-
+        description: "Timestamp when the order item was shipped"
       - name: delivered_at
         data_type: timestamp_ntz
-        description: ""
+        description: "Timestamp when the order item was delivered"

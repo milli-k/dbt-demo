@@ -2,424 +2,348 @@ version: 2
 
 models:
   - name: dim_ecomm__distribution_centers
-    description: ""
+    description: "Dimension table containing information about distribution centers"
     columns:
       - name: id
         data_type: number
-        description: ""
-
+        description: "Unique identifier for each distribution center"
+        constraints:
+          - type: primary_key
       - name: name
         data_type: varchar
-        description: ""
-
+        description: "Name of the distribution center"
       - name: latitude
         data_type: float
-        description: ""
-
+        description: "Geographical latitude of the distribution center location"
       - name: longitude
         data_type: float
-        description: ""
+        description: "Geographical longitude of the distribution center location"
 
   - name: dim_ecomm__events
-    description: ""
+    description: "Dimension table capturing various events related to user interactions on the ecommerce platform"
     columns:
       - name: id
         data_type: number
-        description: ""
-
+        description: "Unique identifier for each event"
+        constraints:
+          - type: primary_key
       - name: sequence_number
         data_type: number
-        description: ""
-
+        description: "Order of events within a session"
       - name: session_id
         data_type: varchar
-        description: ""
-
+        description: "Identifier for the user session"
       - name: created_at
         data_type: timestamp_ntz
-        description: ""
-
+        description: "Timestamp when the event occurred"
       - name: ip_address
         data_type: varchar
-        description: ""
-
+        description: "IP address of the user"
       - name: city
         data_type: varchar
-        description: ""
-
+        description: "City where the event originated"
       - name: state
         data_type: varchar
-        description: ""
-
+        description: "State where the event originated"
       - name: country
         data_type: varchar
-        description: ""
-
+        description: "Country where the event originated"
       - name: zip
         data_type: varchar
-        description: ""
-
+        description: "ZIP code where the event originated"
       - name: latitude
         data_type: float
-        description: ""
-
+        description: "Geographical latitude of the event location"
       - name: longitude
         data_type: float
-        description: ""
-
+        description: "Geographical longitude of the event location"
       - name: os
         data_type: varchar
-        description: ""
-
+        description: "Operating system of the user's device"
       - name: browser
         data_type: varchar
-        description: ""
-
+        description: "Web browser used by the user"
       - name: traffic_source
         data_type: varchar
-        description: ""
-
+        description: "Source of the traffic (e.g., organic, paid)"
       - name: user_id
         data_type: number
-        description: ""
-
+        description: "Identifier of the user who triggered the event"
       - name: uri
         data_type: varchar
-        description: ""
-
+        description: "URI of the page where the event occurred"
       - name: event_type
         data_type: varchar
-        description: ""
-
+        description: "Type of event (e.g., view, add to cart, purchase)"
       - name: ad_event_id
         data_type: number
-        description: ""
-
+        description: "Identifier for advertising-related events"
       - name: referrer_code
         data_type: varchar
-        description: ""
+        description: "Code identifying the referrer of the event"
 
   - name: dim_ecomm__inventory_items
-    description: ""
+    description: "Dimension table containing information about inventory items"
     columns:
       - name: id
         data_type: number
-        description: ""
-
+        description: "Unique identifier for each inventory item"
+        constraints:
+          - type: primary_key
       - name: product_id
         data_type: number
-        description: ""
-
+        description: "Identifier of the associated product"
       - name: created_at
         data_type: timestamp_ntz
-        description: ""
-
+        description: "Timestamp when the inventory item was created"
       - name: sold_at
         data_type: timestamp_ntz
-        description: ""
-
+        description: "Timestamp when the item was sold"
       - name: cost
         data_type: float
-        description: ""
-
+        description: "Cost of the inventory item"
       - name: product_category
         data_type: varchar
-        description: ""
-
+        description: "Category of the product"
       - name: product_name
         data_type: varchar
-        description: ""
-
+        description: "Name of the product"
       - name: product_brand
         data_type: varchar
-        description: ""
-
+        description: "Brand of the product"
       - name: product_retail_price
         data_type: float
-        description: ""
-
+        description: "Retail price of the product"
       - name: product_department
         data_type: varchar
-        description: ""
-
+        description: "Department the product belongs to"
       - name: product_sku
         data_type: varchar
-        description: ""
-
+        description: "Stock Keeping Unit of the product"
       - name: product_distribution_center_id
         data_type: number
-        description: ""
+        description: "Identifier of the distribution center for the product"
 
   - name: dim_ecomm__orders
-    description: ""
+    description: "Dimension table containing information about customer orders"
     columns:
       - name: id
         data_type: number
-        description: ""
-
+        description: "Unique identifier for each order line item"
+        constraints:
+          - type: primary_key
       - name: order_id
         data_type: number
-        description: ""
-
+        description: "Identifier for the order"
       - name: user_id
         data_type: number
-        description: ""
-
+        description: "Identifier of the user who placed the order"
       - name: inventory_item_id
         data_type: number
-        description: ""
-
+        description: "Identifier of the inventory item in the order"
       - name: sale_price
         data_type: float
-        description: ""
-
+        description: "Price at which the item was sold"
       - name: status
         data_type: varchar
-        description: ""
-
+        description: "Current status of the order"
       - name: created_at
         data_type: timestamp_ntz
-        description: ""
-
+        description: "Timestamp when the order was created"
       - name: returned_at
         data_type: timestamp_ntz
-        description: ""
-
+        description: "Timestamp when the order was returned (if applicable)"
       - name: shipped_at
         data_type: timestamp_ntz
-        description: ""
-
+        description: "Timestamp when the order was shipped"
       - name: delivered_at
         data_type: timestamp_ntz
-        description: ""
-
+        description: "Timestamp when the order was delivered"
       - name: is_returned
         data_type: boolean
-        description: ""
-
+        description: "Boolean indicating if the order was returned"
       - name: is_delivered
         data_type: boolean
-        description: ""
-
+        description: "Boolean indicating if the order was delivered"
       - name: is_shipped
         data_type: boolean
-        description: ""
-
+        description: "Boolean indicating if the order was shipped"
       - name: margin
         data_type: float
-        description: ""
-
+        description: "Profit margin for the order"
       - name: months_since_signup
         data_type: number
-        description: ""
-
+        description: "Number of months since the user signed up"
       - name: time_to_ship
         data_type: number
-        description: ""
-
+        description: "Time taken to ship the order"
       - name: upper_case_status
         data_type: varchar
-        description: ""
+        description: "Status of the order in uppercase"
 
   - name: dim_ecomm__products
-    description: ""
+    description: "Dimension table containing information about products"
     columns:
       - name: id
         data_type: number
-        description: ""
-
+        description: "Unique identifier for each product"
+        constraints:
+          - type: primary_key
       - name: cost
         data_type: float
-        description: ""
-
+        description: "Cost of the product"
       - name: category
         data_type: varchar
-        description: ""
-
+        description: "Category of the product"
       - name: name
         data_type: varchar
-        description: ""
-
+        description: "Name of the product"
       - name: brand
         data_type: varchar
-        description: ""
-
+        description: "Brand of the product"
       - name: retail_price
         data_type: float
-        description: ""
-
+        description: "Retail price of the product"
       - name: department
         data_type: varchar
-        description: ""
-
+        description: "Department the product belongs to"
       - name: sku
         data_type: varchar
-        description: ""
-
+        description: "Stock Keeping Unit of the product"
       - name: distribution_center_id
         data_type: number
-        description: ""
+        description: "Identifier of the distribution center for the product"
 
   - name: dim_ecomm__users
-    description: ""
+    description: "Dimension table containing information about users"
     columns:
       - name: id
         data_type: number
-        description: ""
-
+        description: "Unique identifier for each user"
+        constraints:
+          - type: primary_key
       - name: first_name
         data_type: varchar
-        description: ""
-
+        description: "First name of the user"
       - name: last_name
         data_type: varchar
-        description: ""
-
+        description: "Last name of the user"
       - name: email
         data_type: varchar
-        description: ""
-
+        description: "Email address of the user"
       - name: age
         data_type: number
-        description: ""
-
+        description: "Age of the user"
       - name: city
         data_type: varchar
-        description: ""
-
+        description: "City where the user is located"
       - name: state
         data_type: varchar
-        description: ""
-
+        description: "State where the user is located"
       - name: country
         data_type: varchar
-        description: ""
-
+        description: "Country where the user is located"
       - name: zip
         data_type: varchar
-        description: ""
-
+        description: "ZIP code of the user's location"
       - name: latitude
         data_type: float
-        description: ""
-
+        description: "Geographical latitude of the user's location"
       - name: longitude
         data_type: float
-        description: ""
-
+        description: "Geographical longitude of the user's location"
       - name: gender
         data_type: varchar
-        description: ""
-
+        description: "Gender of the user"
       - name: created_at
         data_type: timestamp_ntz
-        description: ""
-
+        description: "Timestamp when the user account was created"
       - name: traffic_source
         data_type: varchar
-        description: ""
+        description: "Source of traffic that led to user signup"
 
   - name: fct_ecomm__order_items_agg
-    description: ""
+    description: "Fact table containing aggregated information about order items"
     columns:
       - name: order_id
         data_type: number
-        description: ""
-
+        description: "Identifier for the order"
       - name: user_id
         data_type: number
-        description: ""
-
+        description: "Identifier of the user who placed the order"
       - name: total_sale_price
         data_type: float
-        description: ""
-
+        description: "Total sale price for the order"
       - name: count
         data_type: number
-        description: ""
+        description: "Number of items in the order"
 
   - name: fct_ecomm__monthly_sales_overview
-    description: ""
+    description: "Fact table providing a monthly overview of sales"
     columns:
       - name: month
         data_type: date
-        description: ""
-
+        description: "Month for which the sales data is aggregated"
       - name: total_sale_price
         data_type: float
-        description: ""
-
+        description: "Total sales for the month"
       - name: mom_change
         data_type: float
-        description: ""
+        description: "Month-over-month change in sales"
 
   - name: mrt_ecomm__sessions
-    description: ""
+    description: "Materialized table containing information about user sessions"
     columns:
       - name: session_id
         data_type: varchar
-        description: ""
-
+        description: "Unique identifier for each session"
+        constraints:
+          - type: primary_key
       - name: user_id
         data_type: number
-        description: ""
-
+        description: "Identifier of the user associated with the session"
       - name: session_start
         data_type: timestamp_ntz
-        description: ""
-
+        description: "Timestamp when the session started"
       - name: session_end
         data_type: timestamp_ntz
-        description: ""
-
+        description: "Timestamp when the session ended"
       - name: events_in_sessions
         data_type: number
-        description: ""
-
+        description: "Number of events in the session"
       - name: duration
         data_type: number
-        description: ""
-
+        description: "Duration of the session in seconds"
       - name: months_since_created
         data_type: number
-        description: ""
-
+        description: "Number of months since the user account was created"
       - name: duration_minutes
         data_type: number
-        description: ""
-
+        description: "Duration of the session in minutes"
       - name: add_to_cart_events
         data_type: number
-        description: ""
-
+        description: "Number of add-to-cart events in the session"
       - name: viewed_product_events
         data_type: number
-        description: ""
-
+        description: "Number of product view events in the session"
       - name: purchase_events
         data_type: number
-        description: ""
-
+        description: "Number of purchase events in the session"
       - name: login_events
         data_type: number
-        description: ""
-
+        description: "Number of login events in the session"
       - name: is_abandoned_cart
         data_type: boolean
-        description: ""
-
+        description: "Boolean indicating if the cart was abandoned"
       - name: had_login_event
         data_type: boolean
-        description: ""
-
+        description: "Boolean indicating if a login event occurred"
       - name: had_viewed_product_event
         data_type: boolean
-        description: ""
-
+        description: "Boolean indicating if a product view event occurred"
       - name: had_add_to_cart_event
         data_type: boolean
-        description: ""
-
+        description: "Boolean indicating if an add-to-cart event occurred"
       - name: had_purchase_event
         data_type: boolean
-        description: ""
+        description: "Boolean indicating if a purchase event occurred"
