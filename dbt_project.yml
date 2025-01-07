@@ -30,8 +30,8 @@ models:
   demo_dbt_snowflake:
     00-staging:
       +materialized: view
-    intermediate:
+    01-intermediate:
       +materialized: table
-    mart:
+    02-mart:
       +materialized: table
 
