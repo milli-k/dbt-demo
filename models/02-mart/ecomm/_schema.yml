@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: dim_ecomm__distribution_centers
+  - name: distribution_centers
     description: "Dimension table containing information about distribution centers"
     columns:
       - name: id
@@ -19,7 +19,7 @@ models:
         data_type: float
         description: "Geographical longitude of the distribution center location"
 
-  - name: dim_ecomm__events
+  - name: events
     description: "Dimension table capturing various events related to user interactions on the ecommerce platform"
     columns:
       - name: id
@@ -82,7 +82,7 @@ models:
         data_type: varchar
         description: "Code identifying the referrer of the event"
 
-  - name: dim_ecomm__inventory_items
+  - name: inventory_items
     description: "Dimension table containing information about inventory items"
     columns:
       - name: id
@@ -124,7 +124,7 @@ models:
         data_type: number
         description: "Identifier of the distribution center for the product"
 
-  - name: dim_ecomm__orders
+  - name: order_items
     description: "Dimension table containing information about customer orders"
     columns:
       - name: id
@@ -181,7 +181,7 @@ models:
         data_type: varchar
         description: "Status of the order in uppercase"
 
-  - name: dim_ecomm__products
+  - name: products
     description: "Dimension table containing information about products"
     columns:
       - name: id
@@ -214,7 +214,7 @@ models:
         data_type: number
         description: "Identifier of the distribution center for the product"
 
-  - name: dim_ecomm__users
+  - name: users
     description: "Dimension table containing information about users"
     columns:
       - name: id
@@ -262,7 +262,7 @@ models:
         data_type: varchar
         description: "Source of traffic that led to user signup"
 
-  - name: fct_ecomm__order_items_agg
+  - name: order_items_agg
     description: "Fact table containing aggregated information about order items"
     columns:
       - name: order_id
@@ -278,7 +278,7 @@ models:
         data_type: number
         description: "Number of items in the order"
 
-  - name: fct_ecomm__monthly_sales_overview
+  - name: monthly_sales_overview
     description: "Fact table providing a monthly overview of sales"
     columns:
       - name: month
@@ -291,7 +291,7 @@ models:
         data_type: float
         description: "Month-over-month change in sales"
 
-  - name: mrt_ecomm__sessions
+  - name: sessions
     description: "Materialized table containing information about user sessions"
     columns:
       - name: session_id
