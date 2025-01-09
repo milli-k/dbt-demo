@@ -1,7 +1,4 @@
 {% macro generate_schema_name(custom_schema_name, node) -%}
-    {{ log("Target name: " ~ target.name, info=True) }}
-    {{ log("Custom schema name: " ~ custom_schema_name, info=True) }}
-    {{ log("Default schema: " ~ target.schema, info=True) }}
 
     {%- set default_schema = target.schema -%}
     {%- set environment_type = env_var('DBT_ENVIRONMENT', 'dev') -%}
