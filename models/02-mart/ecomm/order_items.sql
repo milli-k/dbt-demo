@@ -1,8 +1,3 @@
-{{
-    config(
-        alias='order_items'
-    )
-}}
 select
     order_items.id,
     order_items.order_id,

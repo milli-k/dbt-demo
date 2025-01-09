@@ -1,8 +1,3 @@
-{{
-    config(
-        alias='sessions'
-    )
-}}
 with
     sessions as (
         select *

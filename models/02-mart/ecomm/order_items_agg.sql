@@ -1,8 +1,3 @@
-{{
-    config(
-        alias='order_items_agg'
-    )
-}}
 select
     order_id as order_id,
     user_id as user_id,
