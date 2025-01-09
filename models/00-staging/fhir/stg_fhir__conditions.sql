@@ -8,8 +8,7 @@ with raw as (
 select
     resource_raw:"id"::varchar as id,
     replace(resource_raw:"subject"."reference"::varchar,'urn:uuid:','') as patient_id,
-    -- come back to this
-    replace(resource_raw:"context":"reference"::varchar,'urn:uuid:','') as unknown_fk,
+    replace(resource_raw:"context":"reference"::varchar,'urn:uuid:','') as encounter_id,
     resource_raw:"clinicalStatus"::varchar as clinical_status,
     resource_raw:"verificationStatus"::varchar as verification_status,
     resource_raw:"code"."coding"[0]."code"::varchar as code,
