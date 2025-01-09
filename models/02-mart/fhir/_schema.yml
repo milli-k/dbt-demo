@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: dim_fhir__allergies
+  - name: allergies
     description: "Contains information about patient allergies and intolerances"
     columns:
       - name: patient_id
@@ -32,7 +32,7 @@ models:
         data_type: variant
         description: "Raw FHIR resource data for the allergy"
 
-  - name: dim_fhir__care_plans
+  - name: care_plans
     description: "Contains information about patient care plans"
     columns:
       - name: patient_id
@@ -63,7 +63,7 @@ models:
         data_type: variant
         description: "Raw FHIR resource data for the care plan"
 
-  - name: dim_fhir__conditions
+  - name: conditions
     description: "Contains information about patient health conditions or diagnoses"
     columns:
       - name: id
@@ -102,7 +102,7 @@ models:
         data_type: variant
         description: "Raw FHIR resource data for the condition"
 
-  - name: dim_fhir__diagnostic_reports
+  - name: diagnostic_reports
     description: "Contains information about diagnostic reports for patients"
     columns:
       - name: id
@@ -135,7 +135,7 @@ models:
         data_type: variant
         description: "Raw FHIR resource data for the diagnostic report"
 
-  - name: dim_fhir__encounters
+  - name: encounters
     description: "Contains information about patient encounters or visits"
     columns:
       - name: id
@@ -166,7 +166,7 @@ models:
         data_type: variant
         description: "Raw FHIR resource data for the encounter"
 
-  - name: dim_fhir__immunizations
+  - name: immunizations
     description: "Contains information about patient immunizations"
     columns:
       - name: patient_id
@@ -197,7 +197,7 @@ models:
         data_type: variant
         description: "Raw FHIR resource data for the immunization"
 
-  - name: dim_fhir__medication_requests
+  - name: medication_requests
     description: "Contains information about medication requests or prescriptions"
     columns:
       - name: authored_on
@@ -222,7 +222,7 @@ models:
         data_type: variant
         description: "Raw FHIR resource data for the medication request"
 
-  - name: dim_fhir__medications
+  - name: medications
     description: "Contains information about medications"
     columns:
       - name: patient_id
@@ -238,7 +238,7 @@ models:
         data_type: variant
         description: "Raw FHIR resource data for the medication"
 
-  - name: dim_fhir__observations
+  - name: observations
     description: "Contains information about patient observations or measurements"
     columns:
       - name: id
@@ -277,7 +277,7 @@ models:
         data_type: variant
         description: "Raw FHIR resource data for the observation"
 
-  - name: dim_fhir__organizations
+  - name: organizations
     description: "Contains information about healthcare organizations"
     columns:
       - name: id
@@ -301,7 +301,7 @@ models:
         data_type: variant
         description: "Raw FHIR resource data for the organization"
 
-  - name: dim_fhir__patients
+  - name: patients
     description: "Contains demographic and identifying information about patients"
     columns:
       - name: id
@@ -382,7 +382,7 @@ models:
         data_type: variant
         description: "Raw FHIR resource data for the patient"
 
-  - name: dim_fhir__procedures
+  - name: procedures
     description: "Contains information about medical procedures performed on patients"
     columns:
       - name: patient_id
