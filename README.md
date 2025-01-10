@@ -12,7 +12,7 @@ This project is set up to build things under the database analytics_prod upon gi
 
 General flow:
 - use analyses/generate_source.sql folder to generate new source files
-  - create new file in your staging directory named `_src_<sourceName>`
+  - create new file in your staging directory named `_src_<sourceName>` and copy and paste the output there
     - these files are used for your `{{ source() }}` jinja
 - under each of these, you should create a sub-folder that matches the name of your schema
   - staging is where raw views go (i.e. selecting * from source)
@@ -20,7 +20,7 @@ General flow:
   - mart is where the final dimension / fact / mart that you want to expose in Omni should go
 - update the `dbt_project.yml` to ensure that your models are built in the correct schema
 - use analyses/generate_model_yml.sql to generate schema
-  - create new file in your mart directory named `_schema.yml` and copy and paste there
+  - create new file in your mart directory named `_schema.yml` and copy and paste the output there
     - hot tip: use AI to populate descriptions
 
 ### Personal dev set up
