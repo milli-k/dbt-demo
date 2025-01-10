@@ -28,7 +28,7 @@ To get access to the dbt cloud IDE, you will need to be invited by someone on th
   - warehouse: compute_wh
   - auth method: Key pair
   - username: you omni email
-  - schema: dbt_<firstInitiallastName> e.g. (jkhiev)
+  - schema: dbt_<firstInitiallastName> e.g. (dbt_jkhiev)
   - <b>target name: dev</b>
     - this one is a hard requirement to get models to build in your custom schema when working in dev (e.g. dbt_jkhiev_ecomm)
 
