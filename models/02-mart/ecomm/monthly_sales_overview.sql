@@ -1,8 +1,3 @@
-{{
-    config(
-        alias='monthly_sales_overview'
-    )
-}}
 select
     date(date_trunc('MONTH', created_at)) as month,
     coalesce(sum(sale_price), 0) as total_sale_price,
