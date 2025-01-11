@@ -33,9 +33,9 @@ Here are recommended inputs for the Snowflake config:
 - warehouse: `compute_wh`
 - auth method: Key pair
 - username: your omni email
-- schema: dbt_firstInitial+LastName e.g. (dbt_jkhiev)
+- schema: dbt_firstInitial+LastName e.g. (`dbt_jkhiev`)
 - <b>target name: `dev`</b>
-   - this one is a hard requirement to get models to build in your custom schema when working in dev (e.g. dbt_jkhiev_ecomm)
+   - this one is a hard requirement to get models to build in your custom schema when working in dev (e.g. `dbt_jkhiev_ecomm`)
 
 ### Resources:
 - Learn more about dbt [in the docs](https://docs.getdbt.com/docs/introduction)

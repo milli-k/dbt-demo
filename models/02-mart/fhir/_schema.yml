@@ -1,0 +1,417 @@
+version: 2
+
+models:
+  - name: allergies
+    description: "Contains information about patient allergies and intolerances"
+    columns:
+      - name: patient_id
+        data_type: varchar
+        description: "Unique identifier for the patient"
+      - name: code
+        data_type: varchar
+        description: "Allergy or intolerance code"
+      - name: category
+        data_type: varchar
+        description: "Category of the allergy (e.g., food, medication, environment)"
+      - name: description
+        data_type: varchar
+        description: "Textual description of the allergy"
+      - name: type
+        data_type: varchar
+        description: "Type of allergy (e.g., allergy, intolerance)"
+      - name: criticality
+        data_type: varchar
+        description: "Severity or criticality of the allergy"
+      - name: onset_ts
+        data_type: timestamp_ntz
+        description: "Timestamp when the allergy was first observed or reported"
+      - name: clinical_status
+        data_type: varchar
+        description: "Current clinical status of the allergy (e.g., active, inactive, resolved)"
+      - name: resource_raw
+        data_type: variant
+        description: "Raw FHIR resource data for the allergy"
+
+  - name: care_plans
+    description: "Contains information about patient care plans"
+    columns:
+      - name: patient_id
+        data_type: varchar
+        description: "Unique identifier for the patient"
+      - name: service_provider_id
+        data_type: varchar
+        description: "Identifier for the healthcare provider responsible for the care plan"
+      - name: condition_id
+        data_type: varchar
+        description: "Identifier for the condition being addressed by the care plan"
+      - name: status
+        data_type: varchar
+        description: "Current status of the care plan (e.g., active, completed, cancelled)"
+      - name: category
+        data_type: varchar
+        description: "Category or type of the care plan"
+      - name: start_ts
+        data_type: timestamp_ntz
+        description: "Timestamp when the care plan was initiated"
+      - name: end_ts
+        data_type: timestamp_ntz
+        description: "Timestamp when the care plan was completed or is expected to end"
+      - name: activity
+        data_type: variant
+        description: "Detailed information about planned activities or interventions"
+      - name: resource_raw
+        data_type: variant
+        description: "Raw FHIR resource data for the care plan"
+
+  - name: conditions
+    description: "Contains information about patient health conditions or diagnoses"
+    columns:
+      - name: id
+        data_type: varchar
+        description: "Unique identifier for the condition"
+        constraints:
+          - type: primary_key
+      - name: patient_id
+        data_type: varchar
+        description: "Unique identifier for the patient"
+      - name: encounter_id
+        data_type: varchar
+        description: "Identifier for the encounter when the condition was recorded"
+      - name: clinical_status
+        data_type: varchar
+        description: "Clinical status of the condition (e.g., active, resolved, inactive)"
+      - name: verification_status
+        data_type: varchar
+        description: "Verification status of the condition (e.g., confirmed, provisional)"
+      - name: code
+        data_type: varchar
+        description: "Code representing the condition"
+      - name: name
+        data_type: variant
+        description: "Name or description of the condition"
+      - name: onset_ts
+        data_type: timestamp_ntz
+        description: "Timestamp when the condition began or was first noted"
+      - name: abatement_ts
+        data_type: timestamp_ntz
+        description: "Timestamp when the condition resolved or went into remission"
+      - name: recorded_ts
+        data_type: timestamp_ntz
+        description: "Timestamp when the condition was first recorded"
+      - name: resource_raw
+        data_type: variant
+        description: "Raw FHIR resource data for the condition"
+
+  - name: diagnostic_reports
+    description: "Contains information about diagnostic reports for patients"
+    columns:
+      - name: id
+        data_type: varchar
+        description: "Unique identifier for the diagnostic report"
+        constraints:
+          - type: primary_key
+      - name: patient_id
+        data_type: varchar
+        description: "Unique identifier for the patient"
+      - name: status
+        data_type: varchar
+        description: "Status of the diagnostic report (e.g., registered, partial, final)"
+      - name: code
+        data_type: varchar
+        description: "Code representing the type of diagnostic report"
+      - name: name
+        data_type: varchar
+        description: "Name or description of the diagnostic report"
+      - name: effective_ts
+        data_type: timestamp_ntz
+        description: "Timestamp when the diagnostic report was conducted or became effective"
+      - name: issued_ts
+        data_type: timestamp_ntz
+        description: "Timestamp when the diagnostic report was issued"
+      - name: result
+        data_type: variant
+        description: "Results or findings of the diagnostic report"
+      - name: resource_raw
+        data_type: variant
+        description: "Raw FHIR resource data for the diagnostic report"
+
+  - name: encounters
+    description: "Contains information about patient encounters or visits"
+    columns:
+      - name: id
+        data_type: varchar
+        description: "Unique identifier for the encounter"
+      - name: patient_id
+        data_type: varchar
+        description: "Unique identifier for the patient"
+      - name: class
+        data_type: varchar
+        description: "Class of the encounter (e.g., inpatient, outpatient, emergency)"
+      - name: type
+        data_type: varchar
+        description: "Type or category of the encounter"
+      - name: start_ts
+        data_type: timestamp_ntz
+        description: "Timestamp when the encounter started"
+      - name: end_ts
+        data_type: timestamp_ntz
+        description: "Timestamp when the encounter ended"
+      - name: service_provider_id
+        data_type: varchar
+        description: "Identifier for the healthcare provider or organization providing the service"
+      - name: reason_code
+        data_type: varchar
+        description: "Code representing the reason for the encounter"
+      - name: resource_raw
+        data_type: variant
+        description: "Raw FHIR resource data for the encounter"
+
+  - name: immunizations
+    description: "Contains information about patient immunizations"
+    columns:
+      - name: patient_id
+        data_type: varchar
+        description: "Unique identifier for the patient"
+      - name: encounter_id
+        data_type: varchar
+        description: "Identifier for the encounter during which the immunization was given"
+      - name: status
+        data_type: varchar
+        description: "Status of the immunization (e.g., completed, entered-in-error)"
+      - name: code
+        data_type: varchar
+        description: "Code representing the vaccine"
+      - name: name
+        data_type: varchar
+        description: "Name or description of the vaccine"
+      - name: date_ts
+        data_type: timestamp_ntz
+        description: "Timestamp when the immunization was administered"
+      - name: primary_source
+        data_type: boolean
+        description: "Indicates if the information is from the primary source"
+      - name: not_given
+        data_type: boolean
+        description: "Indicates if the vaccine was not given"
+      - name: resource_raw
+        data_type: variant
+        description: "Raw FHIR resource data for the immunization"
+
+  - name: medication_requests
+    description: "Contains information about medication requests or prescriptions"
+    columns:
+      - name: authored_on
+        data_type: date
+        description: "Date when the medication request was authored"
+      - name: patient_id
+        data_type: varchar
+        description: "Unique identifier for the patient"
+      - name: encounter_id
+        data_type: varchar
+        description: "Identifier for the encounter associated with the medication request"
+      - name: condition_id
+        data_type: varchar
+        description: "Identifier for the condition being treated by the medication"
+      - name: status
+        data_type: varchar
+        description: "Status of the medication request (e.g., active, completed, stopped)"
+      - name: dosage_instructions_as_needed
+        data_type: boolean
+        description: "Indicates if the medication is to be taken as needed"
+      - name: resource_raw
+        data_type: variant
+        description: "Raw FHIR resource data for the medication request"
+
+  - name: medications
+    description: "Contains information about medications"
+    columns:
+      - name: patient_id
+        data_type: varchar
+        description: "Unique identifier for the patient"
+      - name: code
+        data_type: varchar
+        description: "Code representing the medication"
+      - name: name
+        data_type: varchar
+        description: "Name or description of the medication"
+      - name: resource_raw
+        data_type: variant
+        description: "Raw FHIR resource data for the medication"
+
+  - name: observations
+    description: "Contains information about patient observations or measurements"
+    columns:
+      - name: id
+        data_type: varchar
+        description: "Unique identifier for the observation"
+        constraints:
+          - type: primary_key
+      - name: patient_id
+        data_type: varchar
+        description: "Unique identifier for the patient"
+      - name: encounter_id
+        data_type: varchar
+        description: "Identifier for the encounter during which the observation was made"
+      - name: observation_code
+        data_type: varchar
+        description: "Code representing the type of observation"
+      - name: observation_name
+        data_type: varchar
+        description: "Name or description of the observation"
+      - name: value
+        data_type: float
+        description: "Numeric value of the observation"
+      - name: unit
+        data_type: varchar
+        description: "Unit of measurement for the observation value"
+      - name: effective_ts
+        data_type: timestamp_ntz
+        description: "Timestamp when the observation was made or became effective"
+      - name: issued_ts
+        data_type: timestamp_ntz
+        description: "Timestamp when the observation was issued or recorded"
+      - name: status
+        data_type: varchar
+        description: "Status of the observation (e.g., preliminary, final, amended)"
+      - name: resource_raw
+        data_type: variant
+        description: "Raw FHIR resource data for the observation"
+
+  - name: organizations
+    description: "Contains information about healthcare organizations"
+    columns:
+      - name: id
+        data_type: varchar
+        description: "Unique identifier for the organization"
+        constraints:
+          - type: primary_key
+      - name: name
+        data_type: varchar
+        description: "Name of the organization"
+      - name: type
+        data_type: varchar
+        description: "Type or category of the organization"
+      - name: profile
+        data_type: varchar
+        description: "Profile or classification of the organization"
+      - name: revenue
+        data_type: number
+        description: "Revenue of the organization"
+      - name: resource_raw
+        data_type: variant
+        description: "Raw FHIR resource data for the organization"
+
+  - name: patients
+    description: "Contains demographic and identifying information about patients"
+    columns:
+      - name: id
+        data_type: varchar
+        description: "Unique identifier for the patient"
+        constraints:
+          - type: primary_key
+      - name: family_name
+        data_type: varchar
+        description: "Family name (surname) of the patient"
+      - name: given_names
+        data_type: varchar
+        description: "Given name(s) of the patient"
+      - name: phone_number
+        data_type: varchar
+        description: "Patient's phone number"
+      - name: birth_date
+        data_type: date
+        description: "Patient's date of birth"
+      - name: deceased_ts
+        data_type: timestamp_ntz
+        description: "Timestamp of patient's death, if applicable"
+      - name: gender
+        data_type: varchar
+        description: "Patient's gender"
+      - name: marital_status
+        data_type: varchar
+        description: "Patient's marital status"
+      - name: multiple_birth
+        data_type: boolean
+        description: "Indicates if the patient is part of a multiple birth"
+      - name: city
+        data_type: varchar
+        description: "City of patient's address"
+      - name: country
+        data_type: varchar
+        description: "Country of patient's address"
+      - name: postal_code
+        data_type: varchar
+        description: "Postal code of patient's address"
+      - name: state
+        data_type: varchar
+        description: "State or province of patient's address"
+      - name: address_line_1
+        data_type: varchar
+        description: "First line of patient's address"
+      - name: address_line_2
+        data_type: varchar
+        description: "Second line of patient's address"
+      - name: latitude
+        data_type: varchar
+        description: "Latitude of patient's address"
+      - name: longitude
+        data_type: varchar
+        description: "Longitude of patient's address"
+      - name: race
+        data_type: varchar
+        description: "Patient's race"
+      - name: ethnicity
+        data_type: varchar
+        description: "Patient's ethnicity"
+      - name: birth_sex
+        data_type: varchar
+        description: "Patient's sex at birth"
+      - name: birth_place
+        data_type: object
+        description: "Patient's place of birth"
+      - name: mothers_maiden_name
+        data_type: varchar
+        description: "Mother's maiden name"
+      - name: interpreter_required
+        data_type: boolean
+        description: "Indicates if the patient requires an interpreter"
+      - name: ssn
+        data_type: varchar
+        description: "Patient's Social Security Number"
+      - name: resource_raw
+        data_type: variant
+        description: "Raw FHIR resource data for the patient"
+
+  - name: procedures
+    description: "Contains information about medical procedures performed on patients"
+    columns:
+      - name: patient_id
+        data_type: varchar
+        description: "Unique identifier for the patient"
+      - name: condition_id
+        data_type: varchar
+        description: "Identifier for the condition related to the procedure"
+      - name: encounter_id
+        data_type: varchar
+        description: "Identifier for the encounter during which the procedure was performed"
+      - name: status
+        data_type: varchar
+        description: "Status of the procedure (e.g., in-progress, completed, aborted)"
+      - name: code
+        data_type: varchar
+        description: "Code representing the procedure"
+      - name: name
+        data_type: varchar
+        description: "Name or description of the procedure"
+      - name: performed_ts
+        data_type: timestamp_ntz
+        description: "Timestamp when the procedure was performed"
+      - name: reason_reference
+        data_type: varchar
+        description: "Reference to the reason for the procedure"
+      - name: body_site
+        data_type: varchar
+        description: "Body site where the procedure was performed"
+      - name: resource_raw
+        data_type: variant
+        description: "Raw FHIR resource data for the procedure"

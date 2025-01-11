@@ -30,13 +30,19 @@ models:
   demo_dbt_snowflake:
     00-staging:
       +materialized: view
+      fhir:
+        +schema: fhir
       ecomm:
         +schema: ecomm
     01-intermediate:
       +materialized: table
+      fhir:
+        +schema: fhir
       ecomm:
         +schema: ecomm
     02-mart:
       +materialized: table
+      fhir:
+        +schema: fhir
       ecomm:
         +schema: ecomm
