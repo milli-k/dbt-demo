@@ -6,7 +6,7 @@ select
         / lag(total_sale_price, 1) over (order by month),
         2
     ) as mom_change
-from {{ ref('dim_ecomm__orders') }} as order_items
+from {{ ref('order_items') }} as order_items
 where not status = 'Returned' or status is null
 group by 1
 order by 1 desc
