@@ -28,8 +28,6 @@ clean-targets:         # directories to be removed by `dbt clean`
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
 models:
   demo_dbt_snowflake:
-    +grants:
-      select: ['OMNI_DEMO']
     00-staging:
       +materialized: view
       fhir:
