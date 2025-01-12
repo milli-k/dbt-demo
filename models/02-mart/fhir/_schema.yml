@@ -252,10 +252,10 @@ models:
       - name: encounter_id
         data_type: varchar
         description: "Identifier for the encounter during which the observation was made"
-      - name: observation_code
+      - name: code
         data_type: varchar
         description: "Code representing the type of observation"
-      - name: observation_name
+      - name: name
         data_type: varchar
         description: "Name or description of the observation"
       - name: value
