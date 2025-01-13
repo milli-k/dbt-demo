@@ -13,7 +13,8 @@ select
     resource_raw:"code"."coding"[0]."code"::varchar as code,
     resource_raw:"code"."coding"[0]."display"::varchar as name,
     resource_raw:"performedDateTime"::timestamp as performed_ts,
+    resource_raw:"performedPeriod"."start"::timestamp as performed_start_ts,
+    resource_raw:"performedPeriod"."end"::timestamp as performed_end_ts,
     resource_raw:"reasonReference"."display"::varchar as reason_reference,
-    resource_raw:"bodySite"[0]."coding"[0]."code"::varchar as body_site,
     resource_raw
 from raw

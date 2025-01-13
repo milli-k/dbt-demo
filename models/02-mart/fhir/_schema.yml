@@ -409,9 +409,15 @@ models:
       - name: name
         data_type: varchar
         description: "Name or description of the procedure"
-      - name: performed_ts
+      - name: is_quick_procedure
+        data_type: varchar
+        description: "Flag denoting true/false for quick procedures"
+      - name: performed_start_ts
         data_type: timestamp_ntz
-        description: "Timestamp when the procedure was performed"
+        description: "Timestamp when the procedure started"
+      - name: performed_end_ts
+        data_type: timestamp_ntz
+        description: "Timestamp when the procedure ended"
       - name: reason_reference
         data_type: varchar
         description: "Reference to the reason for the procedure"
