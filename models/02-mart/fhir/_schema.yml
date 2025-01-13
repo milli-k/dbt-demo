@@ -89,15 +89,15 @@ models:
       - name: name
         data_type: variant
         description: "Name or description of the condition"
+      - name: asserted_date
+        data_type: date
+        description: "Date when the condition was first asserted"
       - name: onset_ts
         data_type: timestamp_ntz
         description: "Timestamp when the condition began or was first noted"
       - name: abatement_ts
         data_type: timestamp_ntz
         description: "Timestamp when the condition resolved or went into remission"
-      - name: recorded_ts
-        data_type: timestamp_ntz
-        description: "Timestamp when the condition was first recorded"
       - name: resource_raw
         data_type: variant
         description: "Raw FHIR resource data for the condition"
