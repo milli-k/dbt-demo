@@ -19,12 +19,12 @@ models:
       - name: type
         data_type: varchar
         description: "Type of allergy (e.g., allergy, intolerance)"
+      - name: asserted_ts
+        data_type: timestamp_ntz
+        description: "Timestamp when the allergy was asserted"
       - name: criticality
         data_type: varchar
         description: "Severity or criticality of the allergy"
-      - name: onset_ts
-        data_type: timestamp_ntz
-        description: "Timestamp when the allergy was first observed or reported"
       - name: clinical_status
         data_type: varchar
         description: "Current clinical status of the allergy (e.g., active, inactive, resolved)"
@@ -89,15 +89,15 @@ models:
       - name: name
         data_type: variant
         description: "Name or description of the condition"
+      - name: asserted_date
+        data_type: date
+        description: "Date when the condition was first asserted"
       - name: onset_ts
         data_type: timestamp_ntz
         description: "Timestamp when the condition began or was first noted"
       - name: abatement_ts
         data_type: timestamp_ntz
         description: "Timestamp when the condition resolved or went into remission"
-      - name: recorded_ts
-        data_type: timestamp_ntz
-        description: "Timestamp when the condition was first recorded"
       - name: resource_raw
         data_type: variant
         description: "Raw FHIR resource data for the condition"
@@ -162,6 +162,9 @@ models:
       - name: reason_code
         data_type: varchar
         description: "Code representing the reason for the encounter"
+      - name: reason
+        data_type: varchar
+        description: "Reason for the encounter"        
       - name: resource_raw
         data_type: variant
         description: "Raw FHIR resource data for the encounter"
@@ -258,6 +261,9 @@ models:
       - name: name
         data_type: varchar
         description: "Name or description of the observation"
+      - name: category
+        data_type: varchar
+        description: "Category of the observation e.g. vital-signs, laboratory"
       - name: value
         data_type: float
         description: "Numeric value of the observation"
@@ -403,15 +409,18 @@ models:
       - name: name
         data_type: varchar
         description: "Name or description of the procedure"
-      - name: performed_ts
+      - name: is_quick_procedure
+        data_type: varchar
+        description: "Flag denoting true/false for quick procedures"
+      - name: performed_start_ts
         data_type: timestamp_ntz
-        description: "Timestamp when the procedure was performed"
+        description: "Timestamp when the procedure started"
+      - name: performed_end_ts
+        data_type: timestamp_ntz
+        description: "Timestamp when the procedure ended"
       - name: reason_reference
         data_type: varchar
         description: "Reference to the reason for the procedure"
-      - name: body_site
-        data_type: varchar
-        description: "Body site where the procedure was performed"
       - name: resource_raw
         data_type: variant
         description: "Raw FHIR resource data for the procedure"

@@ -11,6 +11,7 @@ select
     replace(resource_raw:"context"."reference"::varchar, 'urn:uuid:', '') as encounter_id,
     resource_raw:"code"."coding"[0]."code"::varchar as code,
     resource_raw:"code"."coding"[0]."display"::varchar as name,
+    resource_raw:"category"[0]."coding"[0]."code"::varchar as category,
     resource_raw:"valueQuantity"."value"::float as value,
     resource_raw:"valueQuantity"."unit"::varchar as unit,
     resource_raw:"effectiveDateTime"::timestamp as effective_ts,
