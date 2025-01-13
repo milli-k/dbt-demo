@@ -162,6 +162,9 @@ models:
       - name: reason_code
         data_type: varchar
         description: "Code representing the reason for the encounter"
+      - name: reason
+        data_type: varchar
+        description: "Reason for the encounter"        
       - name: resource_raw
         data_type: variant
         description: "Raw FHIR resource data for the encounter"

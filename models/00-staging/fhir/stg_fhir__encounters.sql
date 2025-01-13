@@ -13,6 +13,7 @@ select
     resource_raw:"period"."start"::timestamp as start_ts,
     resource_raw:"period"."end"::timestamp as end_ts,
     replace(resource_raw:"serviceProvider"."reference"::varchar,'urn:uuid:', '') as service_provider_id,
-    resource_raw:"reasonCode"[0]."coding"[0]."code"::varchar as reason_code,
+    resource_raw:"reason"."coding"[0]:"code"::varchar as reason_code,
+    resource_raw:"reason"."coding"[0]:"display"::varchar as reason,
     resource_raw
 from raw
