@@ -261,6 +261,9 @@ models:
       - name: name
         data_type: varchar
         description: "Name or description of the observation"
+      - name: category
+        data_type: varchar
+        description: "Category of the observation e.g. vital-signs, laboratory"
       - name: value
         data_type: float
         description: "Numeric value of the observation"
