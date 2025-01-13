@@ -421,9 +421,6 @@ models:
       - name: reason_reference
         data_type: varchar
         description: "Reference to the reason for the procedure"
-      - name: body_site
-        data_type: varchar
-        description: "Body site where the procedure was performed"
       - name: resource_raw
         data_type: variant
         description: "Raw FHIR resource data for the procedure"
