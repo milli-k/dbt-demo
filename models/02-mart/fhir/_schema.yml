@@ -19,12 +19,12 @@ models:
       - name: type
         data_type: varchar
         description: "Type of allergy (e.g., allergy, intolerance)"
+      - name: asserted_ts
+        data_type: timestamp_ntz
+        description: "Timestamp when the allergy was asserted"
       - name: criticality
         data_type: varchar
         description: "Severity or criticality of the allergy"
-      - name: onset_ts
-        data_type: timestamp_ntz
-        description: "Timestamp when the allergy was first observed or reported"
       - name: clinical_status
         data_type: varchar
         description: "Current clinical status of the allergy (e.g., active, inactive, resolved)"

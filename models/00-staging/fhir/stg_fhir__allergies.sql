@@ -11,8 +11,8 @@ select
     resource_raw:"category"[0]::varchar as category,
     resource_raw:"code"."coding"[0]."display"::varchar as description,
     resource_raw:"type"::varchar as type,
+    resource_raw:"assertedDate"::timestamp as asserted_ts,
     resource_raw:"criticality"::varchar as criticality,
-    resource_raw:"onsetDateTime"::timestamp as onset_ts,
-    resource_raw:"clinicalStatus"."coding"[0]."code"::varchar as clinical_status,
+    resource_raw:"clinicalStatus"::varchar as clinical_status,
     resource_raw
 from raw
