@@ -21,5 +21,3 @@ select
 from ecomm_source.public.events
 where
     1 = 1
-    and timestampadd(year, extract(year, current_date()) - 2022, created_at)
-    < current_timestamp()
