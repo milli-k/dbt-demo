@@ -1,3 +1,5 @@
 select
-  {{ dbt_utils.star(ref('stg_fhir__encounters')) }}
-from {{ ref('stg_fhir__encounters') }}
+    timestampadd(year, extract(year, current_date()) - 2017, start_ts) as start_ts,
+    timestampadd(year, extract(year, current_date()) - 2017, end_ts) as end_ts,
+    {{ dbt_utils.star(ref("stg_fhir__encounters"), except=["start_ts", "end_ts"]) }}
+from {{ ref("stg_fhir__encounters") }}
