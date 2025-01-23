@@ -18,6 +18,8 @@ select
     event_type,
     ad_event_id,
     referrer_code
-from ecomm_source.public.events
+from {{ ref('stg_ecomm__events') }}
 where
     1 = 1
+    and timestampadd(year, extract(year, current_date()) - 2022, created_at)
+    < current_timestamp()
