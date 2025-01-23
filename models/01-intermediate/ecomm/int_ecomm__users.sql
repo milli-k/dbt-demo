@@ -23,3 +23,5 @@ select
     traffic_source
 from {{ ref("stg_ecomm__users") }}
 where 1=1
+    and timestampadd(year, extract(year, current_date()) - 2022, created_at)
+    < current_date()
