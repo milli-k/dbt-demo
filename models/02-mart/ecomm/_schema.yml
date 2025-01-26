@@ -126,6 +126,13 @@ models:
 
   - name: order_items
     description: "Dimension table containing information about customer orders"
+    constraints:
+      - type: primary_key
+        columns: id
+      - type: foreign_key
+        columns: user_id
+        to: ref('users')
+        to_columns: id
     columns:
       - name: id
         data_type: number
