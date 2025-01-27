@@ -137,8 +137,6 @@ models:
       - name: id
         data_type: number
         description: "Unique identifier for each order line item"
-        constraints:
-          - type: primary_key
       - name: order_id
         data_type: number
         description: "Identifier for the order"
