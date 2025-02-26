@@ -36,6 +36,8 @@ models:
         +schema: fhir
       ecomm:
         +schema: ecomm
+      finance:
+        +schema: finance
     01-intermediate:
       +materialized: table
       fhir:
@@ -48,3 +50,5 @@ models:
         +schema: fhir
       ecomm:
         +schema: ecomm
+      finance:
+        +schema: finance
