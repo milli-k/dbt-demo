@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: finance
+    database: snowflake_financial_statements
+    schema: earnings_reports
+    tables:
+      - name: quarterly_results
+      - name: yearly_results
