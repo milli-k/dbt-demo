@@ -181,7 +181,7 @@ models:
         description: "Number of months since the user signed up"
       - name: time_to_ship
         data_type: number
-        description: "Time taken to ship the order"
+        description: "Time taken to ship the order (minutes)"
       - name: upper_case_status
         data_type: varchar
         description: "Status of the order in uppercase"
