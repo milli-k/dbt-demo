@@ -2,7 +2,7 @@ version: 2
 
 models:
   - name: distribution_centers
-    description: "This is a dimension table containing information about distribution centers, including a unique identifier, their name, which is actually their location in the form of city name, and where they are located with regards to latitude and lognitude"
+    description: "Dimension table containing information about distribution centers"
     columns:
       - name: id
         data_type: number
@@ -11,13 +11,13 @@ models:
           - type: primary_key
       - name: name
         data_type: varchar
-        description: "This is the name of the city where the distribution center is located. Values include (semicolon delimited): Charleston SC; Chicago IL; Houston TX; Los Angeles CA; Memphis TN; Mobile AL; New Orleans LA; Philadelphia PA; Port Authority of New York/New Jersey NY/NJ; Savannah GA"
+        description: "Name of the distribution center"
       - name: latitude
         data_type: float
-        description: "This is the geographical latitude of the distribution center location and will often be used in tandem with longitude for mapping purposes"
+        description: "Geographical latitude of the distribution center location"
       - name: longitude
         data_type: float
-        description: "This is the geographical longitude of the distribution center location and will often be used in tandem with latitude for mapping purposes"
+        description: "Geographical longitude of the distribution center location"
 
   - name: events
     description: "Dimension table capturing various events related to user interactions on the ecommerce platform"
@@ -92,215 +92,180 @@ models:
           - type: primary_key
       - name: product_id
         data_type: number
-        description: "Identifier of the associated product. This serves as a foreign key to the ID field in the products table, and can be used to connect the two tables with a join. Often users will not pull this into a query directly and we should not include it unless specifically requested."
+        description: "Identifier of the associated product"
       - name: created_at
         data_type: timestamp_ntz
-        description: "Timestamp when the inventory item was created. Preferred date grains are date, week, month, and year."
+        description: "Timestamp when the inventory item was created"
       - name: sold_at
         data_type: timestamp_ntz
-        description: "Timestamp when the item was sold. Preferred date grains are date, week, month, and year."
+        description: "Timestamp when the item was sold"
       - name: cost
         data_type: float
-        description: "Cost of the inventory item in USD. This is not to be used unless solely querying the inventory items table, as the cost field that we often want to use is in the Products table."
+        description: "Cost of the inventory item"
       - name: product_category
         data_type: varchar
-        description: "Category of the product within inventory. This is the second level of the product hierarchy. The categories in order of highest order volume are as followed (semicolon delimited): Accessories; Jeans; Tops & Tees; Active; Shorts; Pants; Outerwear & Coats; Fashion Hoodies & Sweatshirts; Dresses; Sweaters; Swim; Sleep & Lounge; Skirts; Blazers & Jackets; Underwear; Socks; Suits & Sport Coats; Leggings; Pants & Capris; Intimates; Plus; Clothing Sets; Socks & Hosiery; Jumpsuits & Rompers; Maternity; Suits"
+        description: "Category of the product"
       - name: product_name
         data_type: varchar
-        description: "Name of the product within inventory. This is the fourth level of the product hierarchy. This is often used with the product_brand field as well given the high volume of different product names. The top 15 product names in order of highest order volume are as followed (semicolon delimited): Ray-Ban RB2132 New Wayfarer Sunglasses; Levi's Men's 501 Jean; Columbia Men's Steens Mountain Full Zip; Levi's Men's 505 Straight (Regular) Fit Jean;	TrendsBlue Elegant Solid Color Viscose Fringe Scarf - Different Colors Available;	Levi's Men's 550 Relaxed Fit Jean;	Levi's Men's Covert Core Cargo Short;	Columbia Women's Benton Springs Full Zip Jacket; Champion Men's Double Dry Training Tee; Dockers Men's Signature Khaki D2 Straight Fit Flat Front Pant; Carhartt Men's Heavyweight Hooded Pullover Sweatshirt; Duofold Men's Mid Weight Wicking Bottom; Levi's Men's Squadron Cargo Short; Scarfand's Leopard Infinity Scarf; Hanes Men's 10 Pack Crew Sock"
+        description: "Name of the product"
       - name: product_brand
         data_type: varchar
-        description: "Brand of the product. This is the third level of the product hierarchy. This is often used with other levels of the product hierarchy, or as a filter for other metrics and segmentation cuts that we want to look at our data. The top 15 product brands in order of highest order volume are as followed (semicolon delimited): Levi's; Columbia; Allegra K; Dockers; Ray-Ban; Carhartt; Champion; Hanes; Lee; TrendsBlue;	Russell Athletic;	Calvin Klein; Patty; Dickies; Speedo"
+        description: "Brand of the product"
       - name: product_retail_price
         data_type: float
-        description: "Retail price of the product in USD"
+        description: "Retail price of the product"
       - name: product_department
         data_type: varchar
-        description: "Department the product belongs to. This is the first level of the product hierarchy. Possible values (semicolon delimited): Men; Women"
+        description: "Department the product belongs to"
       - name: product_sku
         data_type: varchar
-        description: "Stock Keeping Unit of the product. This is the fifth level of the product hierarchy. This field is rarely used unless users are filtering for a specific set of SKUs or using the field as a dimension after first filtering on other values within the product hierarchy"
+        description: "Stock Keeping Unit of the product"
       - name: product_distribution_center_id
         data_type: number
-        description: "Identifier of the distribution center for the product. This serves as a foreign key to the ID field in the distribution_centers table, and can be used to connect the two tables with a join. Often users will not pull this into a query directly and we should not include it unless specifically requested."
+        description: "Identifier of the distribution center for the product"
 
   - name: order_items
-    description: "Fact table capturing detailed line-item records of each product within customer orders. Each row represents a specific item purchased, along with pricing, shipping, and return details."
+    description: "Dimension table containing information about customer orders"
     constraints:
-    - type: primary_key
-      columns: id
-    - type: foreign_key
-      columns: user_id
-      to: ref('users')
-      to_columns: id
+      - type: primary_key
+        columns: id
+      - type: foreign_key
+        columns: user_id
+        to: ref('users')
+        to_columns: id
     columns:
       - name: id
         data_type: number
-        description: "Unique identifier for each order line item. Generated automatically for each product in an order."
-
+        description: "Unique identifier for each order line item"
       - name: order_id
         data_type: number
-        description: "Identifier linking the item to its parent order. Multiple items can share the same order_id."
-
+        description: "Identifier for the order"
       - name: user_id
         data_type: number
-        description: "Identifier of the user who placed the order, linking to the users dimension. This serves as a foreign key to the ID field in the users table, and can be used to connect the two tables with a join. Often users will not pull this into a query directly and we should not include it unless specifically requested."
-
+        description: "Identifier of the user who placed the order"
       - name: inventory_item_id
         data_type: number
-        description: "Identifier linking to the specific inventory item (product) purchased. This serves as a foreign key to the ID field in the inventory_items table, and can be used to connect the two tables with a join. Often users will not pull this into a query directly and we should not include it unless specifically requested."
-
+        description: "Identifier of the inventory item in the order"
       - name: sale_price
         data_type: float
-        description: "Actual price the customer paid for this specific item at the time of purchase, factoring in discounts or promotions. This is captured in USD."
-
+        description: "Price at which the item was sold"
       - name: status
         data_type: varchar
-        description: "Current processing status of the individual item within the order. Possible values (semicolon delimited): Complete; Shipped; Processing; Cancelled; Returned"
-
+        description: "Current status of the order"
       - name: created_at
         data_type: timestamp_ntz
-        description: "Timestamp when this order item record was created, typically corresponding to the purchase date/time. Preferred date grains are date, week, month, and year."
-
+        description: "Timestamp when the order was created"
       - name: returned_at
         data_type: timestamp_ntz
-        description: "Timestamp when the item was returned by the customer. Null if the item was not returned. Preferred date grains are date, week, month, and year."
-
+        description: "Timestamp when the order was returned (if applicable)"
       - name: shipped_at
         data_type: timestamp_ntz
-        description: "Timestamp when this specific item was shipped from the warehouse. Null if not yet shipped. Preferred date grains are date, week, month, and year."
-
+        description: "Timestamp when the order was shipped"
       - name: delivered_at
         data_type: timestamp_ntz
-        description: "Timestamp when the item was delivered to the customer. Null if not yet delivered. Preferred date grains are date, week, month, and year."
-
+        description: "Timestamp when the order was delivered"
       - name: is_returned
         data_type: boolean
-        description: "Indicates whether this item was returned by the customer. Derived from returned_at. Possible values (semicolon delimited): True; False"
-
+        description: "Boolean indicating if the order was returned"
       - name: is_delivered
         data_type: boolean
-        description: "Indicates whether this item has been delivered to the customer. Derived from delivered_at. Possible values (semicolon delimited): True; False"
-
+        description: "Boolean indicating if the order was delivered"
       - name: is_shipped
         data_type: boolean
-        description: "Indicates whether this item has been shipped. Derived from shipped_at. Possible values (semicolon delimited): True; False"
-
+        description: "Boolean indicating if the order was shipped"
       - name: margin
         data_type: float
-        description: "Calculated profit margin for this item, based on the sale price minus cost of goods sold (COGS). This is in USD"
-
+        description: "Profit margin for the order"
       - name: months_since_signup
         data_type: number
-        description: "Calculated number of months between user's account creation date and the item's purchase date. Helps analyze customer lifecycle and engagement. This should typically be used when users are working with cohorting analyses."
-
+        description: "Number of months since the user signed up"
       - name: time_to_ship
         data_type: number
-        description: "Number of days taken to ship this item after purchase. Calculated from created_at to shipped_at. Useful for evaluating fulfillment performance. This should typically be used when users are looking to find anomalies in orders that may be taking longer than average to ship."
+        description: "Time taken to ship the order"
+      - name: upper_case_status
+        data_type: varchar
+        description: "Status of the order in uppercase"
 
   - name: products
-    description: "Dimension table containing descriptive attributes and pricing details of products available for purchase. Each row represents a unique product."
+    description: "Dimension table containing information about products"
     columns:
       - name: id
         data_type: number
-        description: "Unique identifier assigned to each product. Acts as the primary key for linking with fact tables."
+        description: "Unique identifier for each product"
         constraints:
           - type: primary_key
-
       - name: cost
         data_type: float
-        description: "The procurement or manufacturing cost for a single unit of the product. Used to calculate margins and profitability. This is in USD."
-
+        description: "Cost of the product"
       - name: category
         data_type: varchar
-        description: "The category classification of the product, useful for segmenting sales data. This should be used instead of the product_category field in the inventory table. This is the second level of the product hierarchy. The categories in order of highest order volume are as followed (semicolon delimited): Accessories; Jeans; Tops & Tees; Active; Shorts; Pants; Outerwear & Coats; Fashion Hoodies & Sweatshirts; Dresses; Sweaters; Swim; Sleep & Lounge; Skirts; Blazers & Jackets; Underwear; Socks; Suits & Sport Coats; Leggings; Pants & Capris; Intimates; Plus; Clothing Sets; Socks & Hosiery; Jumpsuits & Rompers; Maternity; Suits"
-
+        description: "Category of the product"
       - name: name
         data_type: varchar
-        description: "The official product name as displayed to customers. This should be used instead of the product_name field in the inventory table. This is the fourth level of the product hierarchy. This is often used with the product_brand field as well given the high volume of different product names. The top 15 product names in order of highest order volume are as followed (semicolon delimited): Ray-Ban RB2132 New Wayfarer Sunglasses; Levi's Men's 501 Jean; Columbia Men's Steens Mountain Full Zip; Levi's Men's 505 Straight (Regular) Fit Jean;	TrendsBlue Elegant Solid Color Viscose Fringe Scarf - Different Colors Available;	Levi's Men's 550 Relaxed Fit Jean;	Levi's Men's Covert Core Cargo Short;	Columbia Women's Benton Springs Full Zip Jacket; Champion Men's Double Dry Training Tee; Dockers Men's Signature Khaki D2 Straight Fit Flat Front Pant; Carhartt Men's Heavyweight Hooded Pullover Sweatshirt; Duofold Men's Mid Weight Wicking Bottom; Levi's Men's Squadron Cargo Short; Scarfand's Leopard Infinity Scarf; Hanes Men's 10 Pack Crew Sock"
-
+        description: "Name of the product"
       - name: brand
         data_type: varchar
-        description: "Brand or manufacturer associated with the product. This should be used instead of the product_brand field in the inventory table. Allows analysis of performance by brand. This is the third level of the product hierarchy. This is often used with other levels of the product hierarchy, or as a filter for other metrics and segmentation cuts that we want to look at our data. The top 15 product brands in order of highest order volume are as followed (semicolon delimited): Levi's; Columbia; Allegra K; Dockers; Ray-Ban; Carhartt; Champion; Hanes; Lee; TrendsBlue;	Russell Athletic;	Calvin Klein; Patty; Dickies; Speedo"
-
+        description: "Brand of the product"
       - name: retail_price
         data_type: float
-        description: "Standard selling price of the product before any discounts or promotions. This should be used instead of the product_retail_price field in the inventory table. Used for pricing analyses. Stated in USD."
-
+        description: "Retail price of the product"
       - name: department
         data_type: varchar
-        description: "Department segmentation that product falls within. This should be used instead of the product_department field in the inventory table. This is the first level of the product hierarchy. Possible values (semicolon delimited): Men; Women"
-
+        description: "Department the product belongs to"
       - name: sku
         data_type: varchar
-        description: "Stock Keeping Unit (SKU) identifier used internally for inventory management and tracking. This should be used instead of the product_sku field in the inventory table. This is the fifth level of the product hierarchy. This field is rarely used unless users are filtering for a specific set of SKUs or using the field as a dimension after first filtering on other values within the product hierarchy"
-
+        description: "Stock Keeping Unit of the product"
       - name: distribution_center_id
         data_type: number
-        description: "Identifier of the primary distribution center responsible for storing and shipping the product. This serves as a foreign key to the ID field in the distribution_centers table, and can be used to connect the two tables with a join. Often users will not pull this into a query directly and we should not include it unless specifically requested."
-
+        description: "Identifier of the distribution center for the product"
 
   - name: users
-    description: "Dimension table containing detailed information about individual users or customers. Each row represents a unique user, including personal details, demographic attributes, and acquisition information."
+    description: "Dimension table containing information about users"
     columns:
       - name: id
         data_type: number
-        description: "Unique identifier assigned to each user. Serves as the primary key for linking user data across related fact tables."
+        description: "Unique identifier for each user"
         constraints:
           - type: primary_key
-
       - name: first_name
         data_type: varchar
-        description: "User's given name."
-
+        description: "First name of the user"
       - name: last_name
         data_type: varchar
-        description: "User's family name or surname."
-
+        description: "Last name of the user"
       - name: email
         data_type: varchar
-        description: "User's email address, typically used for login and communication. These typically have domains of (semicolon delimited): gmail.com; hotmail.com; yahoo.com; aol.com"
-
+        description: "Email address of the user"
       - name: age
         data_type: number
-        description: "Age of the user, useful for demographic segmentation and targeted marketing."
-
+        description: "Age of the user"
       - name: city
         data_type: varchar
-        description: "City of residence, valuable for geographic segmentation. These are cities either in the USA or the UK."
-
+        description: "City where the user is located"
       - name: state
         data_type: varchar
-        description: "State or province of residence, useful in regional analysis and reporting. These are states in either the USA or the UK."
-
+        description: "State where the user is located"
       - name: country
         data_type: varchar
-        description: "Country where the user resides, helpful for international user analysis. Possible values (semicolon delimited): USA; UK"
-
+        description: "Country where the user is located"
       - name: zip
         data_type: varchar
-        description: "ZIP or postal code of the user's location, useful for precise geographic targeting. USA ZIP codes are 5 digit combinations. UK ZIP codes are 4 characters, with two letters and either one or two numbers."
-
+        description: "ZIP code of the user's location"
       - name: latitude
         data_type: float
-        description: "Geographic latitude coordinate of the user's location, useful for location-based analytics and mapping visualizations. This is often used in tandem with longitude to determine a user's precise coordinates."
-
+        description: "Geographical latitude of the user's location"
       - name: longitude
         data_type: float
-        description: "Geographic longitude coordinate of the user's location, complementary to latitude for precise geospatial analyses. This is often used in tandem with latitude to determine a user's precise coordinates."
-
+        description: "Geographical longitude of the user's location"
       - name: gender
         data_type: varchar
-        description: "Gender of the user, helpful for demographic analysis and personalized marketing campaigns. Possible values (semicolon delimited): Female; Male"
-
+        description: "Gender of the user"
       - name: created_at
         data_type: timestamp_ntz
-        description: "Timestamp indicating when the user initially signed up or created their account. Useful for tracking user growth and cohort analysis. Preferred date grains are date, week, month, and year"
-
+        description: "Timestamp when the user account was created"
       - name: traffic_source
         data_type: varchar
-        description: "Channel or source through which the user discovered the platform. Critical for evaluating acquisition channels and marketing effectiveness. Possible values (semicolon delimited): Search; Email; Display; Facebook; Organic"
-
+        description: "Source of traffic that led to user signup"
 
   - name: order_items_agg
     description: "Fact table containing aggregated information about order items"
