@@ -1,1 +1,0 @@
-SELECT * FROM OMNI_ANALYTICS.DBT_CZIMA.catvidz_events
