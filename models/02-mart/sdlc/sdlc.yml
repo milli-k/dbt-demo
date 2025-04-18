@@ -1,0 +1,64 @@
+version: 2
+
+models: 
+  - name: shipped_order_items
+    description: "Dimension table containing information about customer orders"
+    constraints:
+      - type: primary_key
+        columns: id
+      - type: foreign_key
+        columns: user_id
+        to: ref('users')
+        to_columns: id
+    columns:
+      - name: id
+        data_type: number
+        description: "Unique identifier for each order line item"
+      - name: order_id
+        data_type: number
+        description: "Identifier for the order"
+      - name: user_id
+        data_type: number
+        description: "Identifier of the user who placed the order"
+      - name: inventory_item_id
+        data_type: number
+        description: "Identifier of the inventory item in the order"
+      - name: sale_price
+        data_type: float
+        description: "Price at which the item was sold"
+      - name: status
+        data_type: varchar
+        description: "Current status of the order"
+      - name: created_at
+        data_type: timestamp_ntz
+        description: "Timestamp when the order was created"
+      - name: returned_at
+        data_type: timestamp_ntz
+        description: "Timestamp when the order was returned (if applicable)"
+      - name: shipped_at
+        data_type: timestamp_ntz
+        description: "Timestamp when the order was shipped"
+      - name: delivered_at
+        data_type: timestamp_ntz
+        description: "Timestamp when the order was delivered"
+      - name: is_returned
+        data_type: boolean
+        description: "Boolean indicating if the order was returned"
+      - name: is_delivered
+        data_type: boolean
+        description: "Boolean indicating if the order was delivered"
+      - name: is_shipped
+        data_type: boolean
+        description: "Boolean indicating if the order was shipped"
+      - name: margin
+        data_type: float
+        description: "Profit margin for the order"
+      - name: months_since_signup
+        data_type: number
+        description: "Number of months since the user signed up"
+      - name: time_to_ship
+        data_type: number
+        description: "Time taken to ship the order (hours)"
+      - name: upper_case_status
+        data_type: varchar
+        description: "Status of the order in uppercase"

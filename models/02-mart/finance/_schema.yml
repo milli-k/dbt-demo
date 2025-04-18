@@ -1,0 +1,76 @@
+version: 2
+
+models:
+  - name: quarterly_results
+    description: "This model contains quarterly financial results, including details about the company, financial statements, and line items for each fiscal quarter."
+    columns:
+      - name: company
+        data_type: varchar
+        description: "The name of the company to which the financial data pertains."
+
+      - name: statement_name
+        data_type: varchar
+        description: "The type of financial statement, such as Balance Sheet, Income Statement, or Cash Flow Statement."
+
+      - name: fiscal_quarter
+        data_type: varchar
+        description: "The fiscal quarter for which the financial data is reported (e.g., 1, 2, 3, 4)."
+
+      - name: fiscal_year
+        data_type: varchar
+        description: "The fiscal year corresponding to the reported financial data."
+
+      - name: filing_date
+        data_type: date
+        description: "The date on which the financial statement was filed with regulatory authorities."
+
+      - name: period_end_date
+        data_type: date
+        description: "The end date of the reporting period for the financial statement."
+
+      - name: line_item_name
+        data_type: varchar
+        description: "The specific line item in the financial statement, such as 'Sales of investments' or 'Revenue.'"
+
+      - name: line_item_value
+        data_type: number
+        description: "The value associated with the specific line item in the financial statement."
+
+      - name: unit_name
+        data_type: varchar
+        description: "The unit of measurement for the line item value (e.g., Thousands, Ones)."
+
+  - name: yearly_results
+    description: "This model contains yearly financial results, including details about the company, financial statements, and line items for each fiscal year."
+    columns:
+      - name: company
+        data_type: varchar
+        description: "The name of the company to which the financial data pertains."
+
+      - name: statement_name
+        data_type: varchar
+        description: "The type of financial statement, such as Balance Sheet, Income Statement, or Cash Flow Statement."
+
+      - name: fiscal_year
+        data_type: varchar
+        description: "The fiscal year corresponding to the reported financial data."
+
+      - name: filing_date
+        data_type: date
+        description: "The date on which the financial statement was filed with regulatory authorities."
+
+      - name: period_end_date
+        data_type: date
+        description: "The end date of the reporting period for the financial statement."
+
+      - name: line_item_name
+        data_type: varchar
+        description: "The specific line item in the financial statement, such as 'Sales of investments' or 'Revenue.'"
+
+      - name: line_item_value
+        data_type: number
+        description: "The value associated with the specific line item in the financial statement."
+
+      - name: unit_name
+        data_type: varchar
+        description: "The unit of measurement for the line item value (e.g., Thousands, Ones)."
