@@ -1,0 +1,12 @@
+default:
+  target: snowflake
+  outputs:
+    snowflake:
+      account: ''
+      user: ''
+      database: ANALYTICS_PROD
+      type: snowflake
+      schema: ECOMM_SOURCE
+      threads: 4
+      role: DBT_DEMO_ROLE
+      warehouse: COMPUTE_WH
