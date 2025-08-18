@@ -73,7 +73,7 @@ models:
 
       - name: unit_name
         data_type: varchar
-        description: "The unit of measurement for the line item value (e.g., Thousands, Ones)."
+        description: "The unit of measurement for the line item value"
 
   - name: accounts
     description: "Financial accounts that hold client assets and cash balances. Each account represents a specific investment vehicle or container for a client's holdings."
@@ -84,11 +84,11 @@ models:
 
       - name: account_type
         data_type: varchar
-        description: "Type of account (e.g., 'taxable', 'IRA', 'Roth IRA', '401k', 'trust', 'corporate')"
+        description: "Type of account"
 
       - name: account_status
         data_type: varchar
-        description: "Current status of the account (e.g., 'active', 'closed', 'suspended', 'pending')"
+        description: "Current status of the account"
 
       - name: balance
         data_type: number
@@ -96,7 +96,7 @@ models:
 
       - name: currency
         data_type: varchar
-        description: "Base currency for the account (e.g., 'USD', 'EUR', 'GBP')"
+        description: "Base currency for the account"
 
       - name: open_date
         data_type: timestamp_ntz
@@ -107,23 +107,23 @@ models:
     columns:
       - name: asset_id
         data_type: varchar
-        description: "Unique identifier for each asset (often a ticker symbol or CUSIP)"
+        description: "Unique identifier for each asset"
 
       - name: asset_name
         data_type: varchar
-        description: "Full name or description of the asset (e.g., 'Apple Inc.', 'S&P 500 Index Fund')"
+        description: "Full name or description of the asset"
 
       - name: asset_type
         data_type: varchar
-        description: "Broad category of asset (e.g., 'stock', 'bond', 'mutual_fund', 'ETF', 'option', 'commodity')"
+        description: "Broad category of asset"
 
       - name: asset_class
         data_type: varchar
-        description: "Investment classification for portfolio allocation (e.g., 'equity', 'fixed_income', 'alternative', 'cash')"
+        description: "Investment classification for portfolio allocation"
 
       - name: sector
         data_type: varchar
-        description: "Industry sector or category (e.g., 'technology', 'healthcare', 'financials', 'government_bonds')"
+        description: "Industry sector or category"
 
       - name: current_price
         data_type: number
@@ -146,11 +146,11 @@ models:
 
       - name: investment_style
         data_type: varchar
-        description: "Client's preferred investment approach (e.g., 'growth', 'value', 'income', 'balanced', 'index')"
+        description: "Client's preferred investment approach"
 
       - name: risk_tolerance
         data_type: varchar
-        description: "Client's risk appetite level (e.g., 'conservative', 'moderate', 'aggressive', 'very_aggressive')"
+        description: "Client's risk appetite level"
 
       - name: account_manager
         data_type: varchar
@@ -169,19 +169,19 @@ models:
 
       - name: portfolio_name
         data_type: varchar
-        description: "Descriptive name of the portfolio (e.g., 'Growth Portfolio', 'Conservative Income', 'ESG Balanced')"
+        description: "Descriptive name of the portfolio"
 
       - name: portfolio_type
         data_type: varchar
-        description: "Portfolio strategy category (e.g., 'growth', 'income', 'balanced', 'target_date', 'model_portfolio')"
+        description: "Portfolio strategy category"
 
       - name: target_return
         data_type: number
-        description: "Expected annual return percentage for the portfolio (e.g., 0.08 for 8%)"
+        description: "Expected annual return percentage for the portfolio"
 
       - name: risk_level
         data_type: varchar
-        description: "Portfolio risk classification (e.g., 'low', 'medium', 'high', 'very_high')"
+        description: "Portfolio risk classification"
 
       - name: inception_date
         data_type: timestamp_ntz
@@ -212,11 +212,11 @@ models:
 
       - name: transaction_type
         data_type: varchar
-        description: "Type of transaction (e.g., 'buy', 'sell', 'dividend', 'transfer_in', 'transfer_out', 'fee')"
+        description: "Type of transaction"
 
       - name: quantity
         data_type: number
-        description: "Number of units/shares traded (positive for purchases, negative for sales)"
+        description: "Number of units/shares traded"
 
       - name: price_per_unit
         data_type: number
@@ -224,7 +224,7 @@ models:
 
       - name: total_amount
         data_type: number
-        description: "Total monetary value of the transaction (quantity × price_per_unit)"
+        description: "Total monetary value of the transaction"
 
       - name: fees
         data_type: number
