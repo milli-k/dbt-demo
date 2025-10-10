@@ -16,6 +16,9 @@ semantic_models:
     dimensions:
       - name: status
         type: categorical
+      - name: status_complete
+        type: categorical
+        expr: case when status = 'Complete' then true else false end
       - name: created_at
         type: time
         type_params:
