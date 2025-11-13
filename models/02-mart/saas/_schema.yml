@@ -386,7 +386,7 @@ models:
         description: "Feature used for the unique event"
       - name: event_properties
   
-  - name: users
+  - name: user
     description: "Data Blobby sales team table"
     columns:
       - name: id
