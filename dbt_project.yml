@@ -39,7 +39,7 @@ models:
       finance:
         +schema: finance
       saas:
-        +schema: demo
+        +schema: saas
     01-intermediate:
       +materialized: table
       fhir:
@@ -47,7 +47,7 @@ models:
       ecomm:
         +schema: ecomm
       saas:
-        +schema: demo
+        +schema: saas
     02-mart:
       +materialized: table
       fhir:
@@ -57,4 +57,4 @@ models:
       finance:
         +schema: finance
       saas:
-        +schema: demo
+        +schema: saas
