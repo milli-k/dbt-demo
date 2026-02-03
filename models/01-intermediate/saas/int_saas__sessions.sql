@@ -1,51 +1,51 @@
-WITH params AS (
+WITH PARAMS AS (
   SELECT 
-    CURRENT_DATE() AS as_of_date,
-    (YEAR(CURRENT_DATE()) - 2025) AS year_offset
+    CURRENT_DATE() AS AS_OF_DATE,
+    (YEAR(CURRENT_DATE()) - 2025) AS YEAR_OFFSET
 )
 
 SELECT
-    "id",
-    "account_id",
-    "user_id",
-    "session_duration_seconds",
-    "session_duration_minutes",
-    "product_id",
-    "pages_visited",
-    "events_count",
-    "unique_pages",
-    "bounce_rate",
-    "exit_page",
-    "entry_page",
-    "device_type",
-    "browser",
-    "os",
-    "country",
-    "region",
-    "city",
-    "ip_address",
-    "user_agent",
-    "referrer",
-    "utm_source",
-    "utm_medium",
-    "utm_campaign",
-    "account_segment",
-    "product_tier",
-    "user_count",
-    "user_role",
-    "session_quality_score",
-    "errors_encountered",
-    "conversion_events",
+    ID,
+    ACCOUNT_ID,
+    USER_ID,
+    SESSION_DURATION_SECONDS,
+    SESSION_DURATION_MINUTES,
+    PRODUCT_ID,
+    PAGES_VISITED,
+    EVENTS_COUNT,
+    UNIQUE_PAGES,
+    BOUNCE_RATE,
+    EXIT_PAGE,
+    ENTRY_PAGE,
+    DEVICE_TYPE,
+    BROWSER,
+    OS,
+    COUNTRY,
+    REGION,
+    CITY,
+    IP_ADDRESS,
+    USER_AGENT,
+    REFERRER,
+    UTM_SOURCE,
+    UTM_MEDIUM,
+    UTM_CAMPAIGN,
+    ACCOUNT_SEGMENT,
+    PRODUCT_TIER,
+    USER_COUNT,
+    USER_ROLE,
+    SESSION_QUALITY_SCORE,
+    ERRORS_ENCOUNTERED,
+    CONVERSION_EVENTS,
     
     -- Shift the Date field
-    DATEADD(month, p.year_offset * 12, "session_date") AS "session_date",
+    DATEADD(MONTH, P.YEAR_OFFSET * 12, SESSION_DATE) AS SESSION_DATE,
     
     -- Shift the Timestamps
-    DATEADD(month, p.year_offset * 12, "session_start_time") AS "session_start_time",
-    DATEADD(month, p.year_offset * 12, "session_end_time") AS "session_end_time"
+    DATEADD(MONTH, P.YEAR_OFFSET * 12, SESSION_START_TIME) AS SESSION_START_TIME,
+    DATEADD(MONTH, P.YEAR_OFFSET * 12, SESSION_END_TIME) AS SESSION_END_TIME
 
 FROM {{ ref('stg_saas__sessions') }}
-CROSS JOIN params p
+CROSS JOIN PARAMS P
 -- Filter so sessions that haven't "happened yet" in our 2026 timeline are hidden
-WHERE DATEADD(month, p.year_offset * 12, "session_start_time") < CURRENT_TIMESTAMP()
-ORDER BY "session_date" DESC
+WHERE DATEADD(MONTH, P.YEAR_OFFSET * 12, SESSION_START_TIME) < CURRENT_TIMESTAMP()
+ORDER BY SESSION_DATE DESC

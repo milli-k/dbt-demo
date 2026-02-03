@@ -1,50 +1,50 @@
-WITH params AS (
+WITH PARAMS AS (
   SELECT 
-    CURRENT_DATE() AS as_of_date,
+    CURRENT_DATE() AS AS_OF_DATE,
     -- Dynamic offset: moves 2025 data to 2026
-    (YEAR(CURRENT_DATE()) - 2025) AS year_offset 
+    (YEAR(CURRENT_DATE()) - 2025) AS YEAR_OFFSET 
 )
 
 SELECT
-  -- Identifiers (using double quotes for Snowflake case-sensitivity)
-  "id",
-  "account_id",
+  -- Identifiers
+  ID,
+  ACCOUNT_ID,
   
   -- Account Attributes
-  "type",
-  "status",
-  "industry",
-  "annual_revenue",
-  "number_of_employees",
-  "segment",
-  "owner_id",
-  "csm_id",
+  TYPE,
+  STATUS,
+  INDUSTRY,
+  ANNUAL_REVENUE,
+  NUMBER_OF_EMPLOYEES,
+  SEGMENT,
+  OWNER_ID,
+  CSM_ID,
 
   -- THE SHIFTED TIMELINE
   -- 1. When this specific snapshot record was created
-  DATEADD(month, p.year_offset * 12, "created_date") AS "created_date",
+  DATEADD(MONTH, P.YEAR_OFFSET * 12, CREATED_DATE) AS CREATED_DATE,
 
   -- 2. When the account was last modified at the time of this record
-  DATEADD(month, p.year_offset * 12, "last_modified_date") AS "last_modified_date",
+  DATEADD(MONTH, P.YEAR_OFFSET * 12, LAST_MODIFIED_DATE) AS LAST_MODIFIED_DATE,
 
-  -- 3. Churn Date logic: Use IFF for cleaner Snowflake syntax
+  -- 3. Churn Date logic
   -- If shifted churn is in the future, the account hasn't churned yet (NULL)
   IFF(
-    DATEADD(month, p.year_offset * 12, "churn_date") > p.as_of_date,
+    DATEADD(MONTH, P.YEAR_OFFSET * 12, CHURN_DATE) > P.AS_OF_DATE,
     NULL,
-    DATEADD(month, p.year_offset * 12, "churn_date")
-  ) AS "churn_date",
+    DATEADD(MONTH, P.YEAR_OFFSET * 12, CHURN_DATE)
+  ) AS CHURN_DATE,
 
-  "churn_reason"
+  CHURN_REASON
 
 FROM {{ ref("stg_saas__account_history") }}
-CROSS JOIN params p
+CROSS JOIN PARAMS P
 WHERE 
   -- Snapshot must have been created by today in our 2026 timeline
-  DATEADD(month, p.year_offset * 12, "created_date") <= p.as_of_date 
+  DATEADD(MONTH, P.YEAR_OFFSET * 12, CREATED_DATE) <= P.AS_OF_DATE 
   AND (
     -- AND the modification must have logically happened by today
-    "last_modified_date" IS NULL 
-    OR DATEADD(month, p.year_offset * 12, "last_modified_date") <= p.as_of_date
+    LAST_MODIFIED_DATE IS NULL 
+    OR DATEADD(MONTH, P.YEAR_OFFSET * 12, LAST_MODIFIED_DATE) <= P.AS_OF_DATE
   )
-ORDER BY "id" ASC, "created_date" DESC
+ORDER BY ID ASC, CREATED_DATE DESC

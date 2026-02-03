@@ -1,62 +1,62 @@
-WITH params AS (
+WITH PARAMS AS (
   SELECT 
-    CURRENT_DATE() AS as_of_date,
-    (YEAR(CURRENT_DATE()) - 2025) AS year_offset 
+    CURRENT_DATE() AS AS_OF_DATE,
+    (YEAR(CURRENT_DATE()) - 2025) AS YEAR_OFFSET 
 )
 
 SELECT
   -- Identifiers
-  "id",
-  "opportunity_id",
-  "account_id",
-  "name",
-  "stage_name",
-  "amount",
-  "arr",
-  "acv",
-  "tcv",
-  "contract_term_months",
-  "probability",
+  ID,
+  OPPORTUNITY_ID,
+  ACCOUNT_ID,
+  NAME,
+  STAGE_NAME,
+  AMOUNT,
+  ARR,
+  ACV,
+  TCV,
+  CONTRACT_TERM_MONTHS,
+  PROBABILITY,
 
   -- When this snapshot was captured (Shifted to 2026)
-  DATEADD(month, p.year_offset * 12, "created_date") AS "created_date",
+  DATEADD(MONTH, P.YEAR_OFFSET * 12, CREATED_DATE) AS CREATED_DATE,
 
   -- When the stage actually changed (Shifted)
-  DATEADD(month, p.year_offset * 12, "last_stage_change_date") AS "last_stage_change_date",
+  DATEADD(MONTH, P.YEAR_OFFSET * 12, LAST_STAGE_CHANGE_DATE) AS LAST_STAGE_CHANGE_DATE,
 
   -- Close Date Logic: Cap at current date if the shifted date is in the future
   IFF(
-    DATEADD(month, p.year_offset * 12, "close_date") > p.as_of_date,
-    p.as_of_date,
-    DATEADD(month, p.year_offset * 12, "close_date")
-  ) AS "close_date",
+    DATEADD(MONTH, P.YEAR_OFFSET * 12, CLOSE_DATE) > P.AS_OF_DATE,
+    P.AS_OF_DATE,
+    DATEADD(MONTH, P.YEAR_OFFSET * 12, CLOSE_DATE)
+  ) AS CLOSE_DATE,
 
   -- Lifecycle milestones
-  DATEADD(month, p.year_offset * 12, "first_demo_date")  AS "first_demo_date",
-  DATEADD(month, p.year_offset * 12, "trial_start_date") AS "trial_start_date",
+  DATEADD(MONTH, P.YEAR_OFFSET * 12, FIRST_DEMO_DATE)  AS FIRST_DEMO_DATE,
+  DATEADD(MONTH, P.YEAR_OFFSET * 12, TRIAL_START_DATE) AS TRIAL_START_DATE,
 
-  "type",
-  "is_won",
-  "forecast_category",
-  "next_steps",
-  "lead_source",
-  "owner_id",
-  "sales_engineer_id",
-  "contact_id",
-  "competitor",
-  "loss_reason",
-  "win_reason",
-  "risk_score",
-  "risk_flags"
+  TYPE,
+  IS_WON,
+  FORECAST_CATEGORY,
+  NEXT_STEPS,
+  LEAD_SOURCE,
+  OWNER_ID,
+  SALES_ENGINEER_ID,
+  CONTACT_ID,
+  COMPETITOR,
+  LOSS_REASON,
+  WIN_REASON,
+  RISK_SCORE,
+  RISK_FLAGS
 
 FROM {{ ref('stg_saas__opportunity_history') }}
-CROSS JOIN params p
+CROSS JOIN PARAMS P
 WHERE 
   -- Snapshot must have been created by today in our 2026 timeline
-  DATEADD(month, p.year_offset * 12, "created_date") <= p.as_of_date 
+  DATEADD(MONTH, P.YEAR_OFFSET * 12, CREATED_DATE) <= P.AS_OF_DATE 
   AND (
     -- AND the stage change must have logically happened by today
-    "last_stage_change_date" IS NULL 
-    OR DATEADD(month, p.year_offset * 12, "last_stage_change_date") <= p.as_of_date
+    LAST_STAGE_CHANGE_DATE IS NULL 
+    OR DATEADD(MONTH, P.YEAR_OFFSET * 12, LAST_STAGE_CHANGE_DATE) <= P.AS_OF_DATE
   )
-ORDER BY "created_date" DESC, "id" ASC
+ORDER BY CREATED_DATE DESC, ID ASC

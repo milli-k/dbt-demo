@@ -1,30 +1,30 @@
-WITH params AS (
+WITH PARAMS AS (
   SELECT 
-    CURRENT_DATE() AS as_of_date,
-    (YEAR(CURRENT_DATE()) - 2025) AS year_offset
+    CURRENT_DATE() AS AS_OF_DATE,
+    (YEAR(CURRENT_DATE()) - 2025) AS YEAR_OFFSET 
 )
 
 SELECT 
     * REPLACE (
         -- 1. Shift Created Date (Original Logic)
-        DATEADD(month, p.year_offset * 12, "created_date") AS "created_date",
+        DATEADD(MONTH, P.YEAR_OFFSET * 12, CREATED_DATE) AS CREATED_DATE,
 
         -- 2. Logic: If shifted Updated Date is in the future, cap it at TODAY
         IFF(
-            DATEADD(month, p.year_offset * 12, "updated_date") > p.as_of_date,
-            p.as_of_date,
-            DATEADD(month, p.year_offset * 12, "updated_date")
-        ) AS "updated_date",
+            DATEADD(MONTH, P.YEAR_OFFSET * 12, UPDATED_DATE) > P.AS_OF_DATE,
+            P.AS_OF_DATE,
+            DATEADD(MONTH, P.YEAR_OFFSET * 12, UPDATED_DATE)
+        ) AS UPDATED_DATE,
 
         -- 3. Logic: If shifted Resolved Date is in the future, it's not resolved yet (NULL)
         IFF(
-            DATEADD(month, p.year_offset * 12, "resolved_date") > p.as_of_date,
+            DATEADD(MONTH, P.YEAR_OFFSET * 12, RESOLVED_DATE) > P.AS_OF_DATE,
             NULL,
-            DATEADD(month, p.year_offset * 12, "resolved_date")
-        ) AS "resolved_date"
+            DATEADD(MONTH, P.YEAR_OFFSET * 12, RESOLVED_DATE)
+        ) AS RESOLVED_DATE
     )
 FROM {{ ref('stg_saas__jira_issues') }}
-CROSS JOIN params p
+CROSS JOIN PARAMS P
 -- Only show issues that have been 'created' in our 2026 timeline
-WHERE DATEADD(month, p.year_offset * 12, "created_date") <= p.as_of_date
-ORDER BY "created_date" DESC
+WHERE DATEADD(MONTH, P.YEAR_OFFSET * 12, CREATED_DATE) <= P.AS_OF_DATE
+ORDER BY CREATED_DATE DESC
