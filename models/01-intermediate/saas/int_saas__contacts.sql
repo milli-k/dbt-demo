@@ -1,16 +1,21 @@
-WITH params AS (
+WITH PARAMS AS (
   SELECT 
-    CURRENT_DATE() AS as_of_date,
-    (YEAR(CURRENT_DATE()) - 2025) AS year_offset
+    CURRENT_DATE() AS AS_OF_DATE,
+    (YEAR(CURRENT_DATE()) - 2025) AS YEAR_OFFSET 
 )
 
 SELECT 
-    -- We use double quotes to match the lowercase identifiers in the dbt staging model
-    * REPLACE (
-        DATEADD(month, p.year_offset * 12, "created_date") AS "created_date"
-    )
+    ID,
+    ACCOUNT_ID,
+    FIRST_NAME,
+    LAST_NAME,
+    EMAIL,
+    PHONE,
+    TITLE,
+    -- Apply the shift and standardize name
+    DATEADD(MONTH, P.YEAR_OFFSET * 12, CREATED_DATE) AS CREATED_DATE
 FROM {{ ref('stg_saas__contacts') }}
-CROSS JOIN params p
--- Filter based on the shifted 2026 date
-WHERE DATEADD(month, p.year_offset * 12, "created_date") <= p.as_of_date
-ORDER BY "created_date" DESC
+CROSS JOIN PARAMS P
+-- Filter using standardized identifiers
+WHERE DATEADD(MONTH, P.YEAR_OFFSET * 12, CREATED_DATE) <= P.AS_OF_DATE
+ORDER BY CREATED_DATE DESC

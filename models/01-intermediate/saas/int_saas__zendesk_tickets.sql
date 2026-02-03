@@ -1,66 +1,66 @@
-WITH params AS (
+WITH PARAMS AS (
   SELECT 
-    CURRENT_DATE() AS as_of_date,
-    (YEAR(CURRENT_DATE()) - 2025) AS year_offset 
+    CURRENT_DATE() AS AS_OF_DATE,
+    (YEAR(CURRENT_DATE()) - 2025) AS YEAR_OFFSET 
 ),
 
-shifted_tickets AS (
+SHIFTED_TICKETS AS (
   SELECT
     *,
-    -- Use double quotes to match your Snowflake staging schema
-    DATEADD(month, (SELECT year_offset * 12 FROM params), "created_date") AS "raw_shifted_created",
-    DATEADD(month, (SELECT year_offset * 12 FROM params), "updated_date") AS "raw_shifted_updated",
-    DATEADD(month, (SELECT year_offset * 12 FROM params), "resolved_date") AS "raw_shifted_resolved",
-    DATEADD(month, (SELECT year_offset * 12 FROM params), "due_date") AS "raw_shifted_due"
+    -- Use standardized naming for shifted dates
+    DATEADD(MONTH, (SELECT YEAR_OFFSET * 12 FROM PARAMS), CREATED_DATE) AS RAW_SHIFTED_CREATED,
+    DATEADD(MONTH, (SELECT YEAR_OFFSET * 12 FROM PARAMS), UPDATED_DATE) AS RAW_SHIFTED_UPDATED,
+    DATEADD(MONTH, (SELECT YEAR_OFFSET * 12 FROM PARAMS), RESOLVED_DATE) AS RAW_SHIFTED_RESOLVED,
+    DATEADD(MONTH, (SELECT YEAR_OFFSET * 12 FROM PARAMS), DUE_DATE) AS RAW_SHIFTED_DUE
   FROM {{ ref('stg_saas__zendesk_tickets') }}
 )
 
 SELECT
-  "id",
-  "account_id",
-  "ticket_id",
-  "type",
-  "subject",
-  "description",
-  "priority",
+  ID,
+  ACCOUNT_ID,
+  TICKET_ID,
+  TYPE,
+  SUBJECT,
+  DESCRIPTION,
+  PRIORITY,
   
   -- Logic: If we nulled the resolved_date, flip status back to 'open'
   IFF(
-    "raw_shifted_resolved" > p.as_of_date AND "raw_shifted_resolved" != "raw_shifted_updated",
+    RAW_SHIFTED_RESOLVED > P.AS_OF_DATE AND RAW_SHIFTED_RESOLVED != RAW_SHIFTED_UPDATED,
     'open',
-    "status"
-  ) AS "status",
+    STATUS
+  ) AS STATUS,
 
-  "channel",
-  "requester_id",
-  "assignee_id",
-  "group_id",
-  "raw_shifted_created" AS "created_date",
+  CHANNEL,
+  REQUESTER_ID,
+  ASSIGNEE_ID,
+  GROUP_ID,
+  RAW_SHIFTED_CREATED AS CREATED_DATE,
   
   -- Updated Date logic (capped at today)
-  IFF("raw_shifted_updated" > p.as_of_date, p.as_of_date, "raw_shifted_updated") AS "updated_date",
+  IFF(RAW_SHIFTED_UPDATED > P.AS_OF_DATE, P.AS_OF_DATE, RAW_SHIFTED_UPDATED) AS UPDATED_DATE,
 
   -- Resolved Date logic (future becomes NULL)
   CASE 
-    WHEN "raw_shifted_resolved" > p.as_of_date THEN 
-      IFF("raw_shifted_resolved" = "raw_shifted_updated", p.as_of_date, NULL)
-    ELSE "raw_shifted_resolved" 
-  END AS "resolved_date",
+    WHEN RAW_SHIFTED_RESOLVED > P.AS_OF_DATE THEN 
+      IFF(RAW_SHIFTED_RESOLVED = RAW_SHIFTED_UPDATED, P.AS_OF_DATE, NULL)
+    ELSE RAW_SHIFTED_RESOLVED 
+  END AS RESOLVED_DATE,
 
-  "first_response_time_hours",
-  "resolution_time_hours",
-  "satisfaction_score",
-  "satisfaction_comment",
-  "tags",
-  "account_segment",
-  "brand_id",
-  "locale",
-  "timezone",
-  "raw_shifted_due" AS "due_date",
-  "external_id",
-  "jira_issue_id"
+  FIRST_RESPONSE_TIME_HOURS,
+  RESOLUTION_TIME_HOURS,
+  SATISFACTION_SCORE,
+  SATISFACTION_COMMENT,
+  TAGS,
+  ACCOUNT_SEGMENT,
+  BRAND_ID,
+  LOCALE,
+  TIMEZONE,
+  RAW_SHIFTED_DUE AS DUE_DATE,
+  EXTERNAL_ID,
+  JIRA_ISSUE_ID
 
-FROM shifted_tickets
-CROSS JOIN params p
-WHERE "raw_shifted_created" <= p.as_of_date 
-ORDER BY "created_date" DESC
+FROM SHIFTED_TICKETS
+CROSS JOIN PARAMS P
+WHERE RAW_SHIFTED_CREATED <= P.AS_OF_DATE 
+ORDER BY CREATED_DATE DESC

@@ -1,43 +1,43 @@
-WITH params AS (
+WITH PARAMS AS (
   SELECT 
-    CURRENT_TIMESTAMP() AS as_of_ts,
-    (YEAR(CURRENT_DATE()) - 2025) AS year_offset
+    CURRENT_TIMESTAMP() AS AS_OF_TS,
+    (YEAR(CURRENT_DATE()) - 2025) AS YEAR_OFFSET
 )
 
 SELECT
-    "id"
-    , "account_id"
-    , "user_id"
-    , "event_type"
-    , "event_name"
+    ID
+    , ACCOUNT_ID
+    , USER_ID
+    , EVENT_TYPE
+    , EVENT_NAME
     -- Shifting the date and timestamp forward to 2026
-    , DATEADD(month, p.year_offset * 12, "event_date") AS "event_date"
-    , DATEADD(month, p.year_offset * 12, "event_timestamp") AS "event_timestamp"
-    , "session_id"
-    , "sequence_number"
-    , "product_id"
-    , "page_url"
-    , "user_agent"
-    , "ip_address"
-    , "country"
-    , "region"
-    , "city"
-    , "device_type"
-    , "browser"
-    , "os"
-    , "screen_resolution"
-    , "referrer"
-    , "utm_source"
-    , "utm_medium"
-    , "utm_campaign"
-    , "account_segment"
-    , "product_tier"
-    , "user_count"
-    , "user_role"
-    , "feature_name"
-    , "event_properties"
+    , DATEADD(MONTH, P.YEAR_OFFSET * 12, EVENT_DATE) AS EVENT_DATE
+    , DATEADD(MONTH, P.YEAR_OFFSET * 12, EVENT_TIMESTAMP) AS EVENT_TIMESTAMP
+    , SESSION_ID
+    , SEQUENCE_NUMBER
+    , PRODUCT_ID
+    , PAGE_URL
+    , USER_AGENT
+    , IP_ADDRESS
+    , COUNTRY
+    , REGION
+    , CITY
+    , DEVICE_TYPE
+    , BROWSER
+    , OS
+    , SCREEN_RESOLUTION
+    , REFERRER
+    , UTM_SOURCE
+    , UTM_MEDIUM
+    , UTM_CAMPAIGN
+    , ACCOUNT_SEGMENT
+    , PRODUCT_TIER
+    , USER_COUNT
+    , USER_ROLE
+    , FEATURE_NAME
+    , EVENT_PROPERTIES
 FROM {{ ref('stg_saas__usage_events') }}
-CROSS JOIN params p
+CROSS JOIN PARAMS P
 -- Filter so events "appear" in real-time as the clock ticks today in 2026
-WHERE DATEADD(month, p.year_offset * 12, "event_timestamp") < p.as_of_ts
-ORDER BY "event_date" DESC
+WHERE DATEADD(MONTH, P.YEAR_OFFSET * 12, EVENT_TIMESTAMP) < P.AS_OF_TS
+ORDER BY EVENT_DATE DESC
