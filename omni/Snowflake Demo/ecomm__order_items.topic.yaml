@@ -1,0 +1,20 @@
+base_view: ecomm__order_items
+label: Ecommerce
+
+fields: [ all_views.*, ecomm__order_items.* ]
+access_filters:
+  - field: ecomm__products.brand
+    user_attribute: brand_name
+    values_for_unfiltered: [ all_brands ]
+    enable_sql_like_wildcards: true
+default_filters:
+  ecomm__users.country:
+    is: USA
+  ecomm__order_items.status:
+    not: [ Cancelled, Returned ]
+
+joins:
+  ecomm__users: {}
+  user_order_facts: {}
+  ecomm__inventory_items:
+    ecomm__products: {}

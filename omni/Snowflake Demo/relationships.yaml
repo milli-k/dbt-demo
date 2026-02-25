@@ -1,0 +1,496 @@
+- join_from_view: ecomm__order_items
+  join_to_view: user_order_facts
+  join_type: always_left
+  on_sql: ${ecomm__order_items.user_id} = ${user_order_facts.user_id}
+  relationship_type: many_to_one
+  reversible: false
+
+- join_from_view: demo__contacts
+  join_to_view: demo__account
+  join_type: always_left
+  on_sql: ${demo__contacts.account_id} = ${demo__account.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__contact_js
+  join_to_view: demo__account
+  join_type: always_left
+  on_sql: ${demo__contact_js.account_id} = ${demo__account.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__events_interactive
+  join_to_view: demo__account
+  join_type: always_left
+  on_sql: ${demo__events_interactive.account_id} = ${demo__account.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__events_interactive
+  join_to_view: demo__user
+  join_type: always_left
+  on_sql: ${demo__events_interactive.user_id} = ${demo__user.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__events_interactive
+  join_to_view: demo__product
+  join_type: always_left
+  on_sql: ${demo__events_interactive.product_id} = ${demo__product.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__gaming_events
+  join_to_view: demo__user
+  join_type: always_left
+  on_sql: ${demo__gaming_events.user_id} = ${demo__user.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__int_saas__account_history
+  join_to_view: demo__account
+  join_type: always_left
+  on_sql: ${demo__int_saas__account_history.account_id} = ${demo__account.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__int_saas__contacts
+  join_to_view: demo__account
+  join_type: always_left
+  on_sql: ${demo__int_saas__contacts.account_id} = ${demo__account.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__int_saas__jira_issues
+  join_to_view: demo__account
+  join_type: always_left
+  on_sql: ${demo__int_saas__jira_issues.account_id} = ${demo__account.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__int_saas__jira_issues
+  join_to_view: demo__zendesk_tickets
+  join_type: always_left
+  on_sql: ${demo__int_saas__jira_issues.zendesk_ticket_id} =
+    ${demo__zendesk_tickets.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__int_saas__opportunities
+  join_to_view: demo__account
+  join_type: always_left
+  on_sql: ${demo__int_saas__opportunities.account_id} = ${demo__account.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__int_saas__opportunity_history
+  join_to_view: demo__account
+  join_type: always_left
+  on_sql: ${demo__int_saas__opportunity_history.account_id} = ${demo__account.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__int_saas__opportunity_line_items
+  join_to_view: demo__product
+  join_type: always_left
+  on_sql: ${demo__int_saas__opportunity_line_items.product_id} = ${demo__product.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__int_saas__sessions
+  join_to_view: demo__account
+  join_type: always_left
+  on_sql: ${demo__int_saas__sessions.account_id} = ${demo__account.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__int_saas__sessions
+  join_to_view: demo__user
+  join_type: always_left
+  on_sql: ${demo__int_saas__sessions.user_id} = ${demo__user.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__int_saas__sessions
+  join_to_view: demo__product
+  join_type: always_left
+  on_sql: ${demo__int_saas__sessions.product_id} = ${demo__product.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__int_saas__usage_events
+  join_to_view: demo__account
+  join_type: always_left
+  on_sql: ${demo__int_saas__usage_events.account_id} = ${demo__account.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__int_saas__usage_events
+  join_to_view: demo__user
+  join_type: always_left
+  on_sql: ${demo__int_saas__usage_events.user_id} = ${demo__user.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__int_saas__usage_events
+  join_to_view: demo__product
+  join_type: always_left
+  on_sql: ${demo__int_saas__usage_events.product_id} = ${demo__product.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__int_saas__zendesk_tickets
+  join_to_view: demo__account
+  join_type: always_left
+  on_sql: ${demo__int_saas__zendesk_tickets.account_id} = ${demo__account.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__int_saas__zendesk_tickets
+  join_to_view: demo__jira_issues
+  join_type: always_left
+  on_sql: ${demo__int_saas__zendesk_tickets.jira_issue_id} = ${demo__jira_issues.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__jira_issues
+  join_to_view: demo__account
+  join_type: always_left
+  on_sql: ${demo__jira_issues.account_id} = ${demo__account.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__jira_issues
+  join_to_view: demo__zendesk_tickets
+  join_type: always_left
+  on_sql: ${demo__jira_issues.zendesk_ticket_id} = ${demo__zendesk_tickets.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__opportunities
+  join_to_view: demo__account
+  join_type: always_left
+  on_sql: ${demo__opportunities.account_id} = ${demo__account.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__opportunity_history
+  join_to_view: demo__account
+  join_type: always_left
+  on_sql: ${demo__opportunity_history.account_id} = ${demo__account.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__opportunity_line_items
+  join_to_view: demo__product
+  join_type: always_left
+  on_sql: ${demo__opportunity_line_items.product_id} = ${demo__product.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__opp_js
+  join_to_view: demo__account
+  join_type: always_left
+  on_sql: ${demo__opp_js.account_id} = ${demo__account.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__product_usage
+  join_to_view: demo__account
+  join_type: always_left
+  on_sql: ${demo__product_usage.account_id} = ${demo__account.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__product_usage
+  join_to_view: demo__product
+  join_type: always_left
+  on_sql: ${demo__product_usage.product_id} = ${demo__product.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__product_users_js
+  join_to_view: demo__account
+  join_type: always_left
+  on_sql: ${demo__product_users_js.account_id} = ${demo__account.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__sessions_interactive
+  join_to_view: demo__account
+  join_type: always_left
+  on_sql: ${demo__sessions_interactive.account_id} = ${demo__account.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__sessions_interactive
+  join_to_view: demo__user
+  join_type: always_left
+  on_sql: ${demo__sessions_interactive.user_id} = ${demo__user.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__sessions_interactive
+  join_to_view: demo__product
+  join_type: always_left
+  on_sql: ${demo__sessions_interactive.product_id} = ${demo__product.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__stg_saas__account_history
+  join_to_view: demo__account
+  join_type: always_left
+  on_sql: ${demo__stg_saas__account_history.account_id} = ${demo__account.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__stg_saas__contacts
+  join_to_view: demo__account
+  join_type: always_left
+  on_sql: ${demo__stg_saas__contacts.account_id} = ${demo__account.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__stg_saas__jira_issues
+  join_to_view: demo__account
+  join_type: always_left
+  on_sql: ${demo__stg_saas__jira_issues.account_id} = ${demo__account.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__stg_saas__jira_issues
+  join_to_view: demo__zendesk_tickets
+  join_type: always_left
+  on_sql: ${demo__stg_saas__jira_issues.zendesk_ticket_id} =
+    ${demo__zendesk_tickets.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__stg_saas__opportunities
+  join_to_view: demo__account
+  join_type: always_left
+  on_sql: ${demo__stg_saas__opportunities.account_id} = ${demo__account.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__stg_saas__opportunity_history
+  join_to_view: demo__account
+  join_type: always_left
+  on_sql: ${demo__stg_saas__opportunity_history.account_id} = ${demo__account.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__stg_saas__opportunity_line_items
+  join_to_view: demo__product
+  join_type: always_left
+  on_sql: ${demo__stg_saas__opportunity_line_items.product_id} = ${demo__product.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__stg_saas__sessions
+  join_to_view: demo__account
+  join_type: always_left
+  on_sql: ${demo__stg_saas__sessions.account_id} = ${demo__account.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__stg_saas__sessions
+  join_to_view: demo__user
+  join_type: always_left
+  on_sql: ${demo__stg_saas__sessions.user_id} = ${demo__user.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__stg_saas__sessions
+  join_to_view: demo__product
+  join_type: always_left
+  on_sql: ${demo__stg_saas__sessions.product_id} = ${demo__product.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__stg_saas__usage_events
+  join_to_view: demo__product
+  join_type: always_left
+  on_sql: ${demo__stg_saas__usage_events.product_id} = ${demo__product.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__stg_saas__usage_events
+  join_to_view: demo__account
+  join_type: always_left
+  on_sql: ${demo__stg_saas__usage_events.account_id} = ${demo__account.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__stg_saas__usage_events
+  join_to_view: demo__user
+  join_type: always_left
+  on_sql: ${demo__stg_saas__usage_events.user_id} = ${demo__user.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__stg_saas__zendesk_tickets
+  join_to_view: demo__account
+  join_type: always_left
+  on_sql: ${demo__stg_saas__zendesk_tickets.account_id} = ${demo__account.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__stg_saas__zendesk_tickets
+  join_to_view: demo__jira_issues
+  join_type: always_left
+  on_sql: ${demo__stg_saas__zendesk_tickets.jira_issue_id} = ${demo__jira_issues.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__usage_events
+  join_to_view: demo__account
+  join_type: always_left
+  on_sql: ${demo__usage_events.account_id} = ${demo__account.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__usage_events
+  join_to_view: demo__user
+  join_type: always_left
+  on_sql: ${demo__usage_events.user_id} = ${demo__user.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__usage_events
+  join_to_view: demo__product
+  join_type: always_left
+  on_sql: ${demo__usage_events.product_id} = ${demo__product.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__usage_js
+  join_to_view: demo__account
+  join_type: always_left
+  on_sql: ${demo__usage_js.account_id} = ${demo__account.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__usage_js
+  join_to_view: demo__user
+  join_type: always_left
+  on_sql: ${demo__usage_js.user_id} = ${demo__user.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__usage_js
+  join_to_view: demo__product
+  join_type: always_left
+  on_sql: ${demo__usage_js.product_id} = ${demo__product.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__user_sessions
+  join_to_view: demo__account
+  join_type: always_left
+  on_sql: ${demo__user_sessions.account_id} = ${demo__account.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__user_sessions
+  join_to_view: demo__user
+  join_type: always_left
+  on_sql: ${demo__user_sessions.user_id} = ${demo__user.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__user_sessions
+  join_to_view: demo__product
+  join_type: always_left
+  on_sql: ${demo__user_sessions.product_id} = ${demo__product.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__zendesk_tickets
+  join_to_view: demo__account
+  join_type: always_left
+  on_sql: ${demo__zendesk_tickets.account_id} = ${demo__account.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__account_history
+  join_to_view: demo__account
+  join_type: always_left
+  on_sql: ${demo__account_history.account_id} = ${demo__account.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__opportunity
+  join_to_view: demo__contact
+  join_type: always_left
+  on_sql: ${demo__opportunity.contact_id} = ${demo__contact.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: demo__opportunity_line_item
+  join_to_view: demo__opportunity
+  join_type: always_left
+  on_sql: ${demo__opportunity_line_item.opportunity_id} = ${demo__opportunity.id}
+  relationship_type: assumed_many_to_one
+
+# Relationship is defined in the data warehouse
+- join_from_view: ecomm__order_items
+  join_to_view: ecomm__users
+  join_type: always_left
+  on_sql: ${ecomm__order_items.user_id} = ${ecomm__users.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: ecomm__events
+  join_to_view: ecomm__users
+  join_type: always_left
+  on_sql: ${ecomm__events.user_id} = ${ecomm__users.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: ecomm__int_ecomm__events
+  join_to_view: ecomm__users
+  join_type: always_left
+  on_sql: ${ecomm__int_ecomm__events.user_id} = ${ecomm__users.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: ecomm__int_ecomm__inventory_items
+  join_to_view: ecomm__products
+  join_type: always_left
+  on_sql: ${ecomm__int_ecomm__inventory_items.product_id} = ${ecomm__products.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: ecomm__int_ecomm__order_items
+  join_to_view: ecomm__users
+  join_type: always_left
+  on_sql: ${ecomm__int_ecomm__order_items.user_id} = ${ecomm__users.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: ecomm__int_ecomm__order_items
+  join_to_view: ecomm__inventory_items
+  join_type: always_left
+  on_sql: ${ecomm__int_ecomm__order_items.inventory_item_id} =
+    ${ecomm__inventory_items.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: ecomm__inventory_items
+  join_to_view: ecomm__products
+  join_type: always_left
+  on_sql: ${ecomm__inventory_items.product_id} = ${ecomm__products.id}
+  relationship_type: assumed_many_to_one
+
+# Relationship is defined in the data warehouse
+- join_from_view: ecomm__order_items
+  join_to_view: ecomm__inventory_items
+  join_type: always_left
+  on_sql: ${ecomm__order_items.inventory_item_id} = ${ecomm__inventory_items.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: ecomm__order_items_agg
+  join_to_view: ecomm__users
+  join_type: always_left
+  on_sql: ${ecomm__order_items_agg.user_id} = ${ecomm__users.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: ecomm__products
+  join_to_view: ecomm__distribution_centers
+  join_type: always_left
+  on_sql: ${ecomm__products.distribution_center_id} = ${ecomm__distribution_centers.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: ecomm__sessions
+  join_to_view: ecomm__users
+  join_type: always_left
+  on_sql: ${ecomm__sessions.user_id} = ${ecomm__users.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: ecomm__stg_ecomm__events
+  join_to_view: ecomm__users
+  join_type: always_left
+  on_sql: ${ecomm__stg_ecomm__events.user_id} = ${ecomm__users.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: ecomm__stg_ecomm__inventory_items
+  join_to_view: ecomm__products
+  join_type: always_left
+  on_sql: ${ecomm__stg_ecomm__inventory_items.product_id} = ${ecomm__products.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: ecomm__stg_ecomm__order_items
+  join_to_view: ecomm__users
+  join_type: always_left
+  on_sql: ${ecomm__stg_ecomm__order_items.user_id} = ${ecomm__users.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: ecomm__stg_ecomm__order_items
+  join_to_view: ecomm__inventory_items
+  join_type: always_left
+  on_sql: ${ecomm__stg_ecomm__order_items.inventory_item_id} =
+    ${ecomm__inventory_items.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: ecomm__stg_ecomm__products
+  join_to_view: ecomm__distribution_centers
+  join_type: always_left
+  on_sql: ${ecomm__stg_ecomm__products.distribution_center_id} =
+    ${ecomm__distribution_centers.id}
+  relationship_type: assumed_many_to_one
+  # # Relationship is defined in the data warehouse
+  # - join_from_view: ecomm_source__order_items
+  #   join_to_view: ecomm_source__inventory_items
+  #   join_type: always_left
+  #   on_sql: ${ecomm_source__order_items.inventory_item_id} =
+  #     ${ecomm_source__inventory_items.id}
+  #   relationship_type: assumed_many_to_one
+
+  # # Relationship is defined in the data warehouse
+  # - join_from_view: ecomm_source__order_items
+  #   join_to_view: ecomm_source__users
+  #   join_type: always_left
+  #   on_sql: ${ecomm_source__order_items.user_id} = ${ecomm_source__users.id}
+  #   relationship_type: assumed_many_to_one
+
+  # # Relationship is defined in the data warehouse
+  # - join_from_view: ecomm__ecomm__order_items
+  #   join_to_view: ecomm__ecomm__users
+  #   join_type: always_left
+  #   on_sql: '"ecomm__ecomm__order_items"."USER_ID" = "ecomm__ecomm__users"."ID"'
+  #   relationship_type: assumed_many_to_one

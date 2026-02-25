@@ -1,0 +1,32 @@
+# Reference this view as user_order_facts
+label: User Order Facts
+
+schema: ECOMM
+query:
+  fields:
+    ecomm__order_items.user_id: user_id
+    ecomm__order_items.created_at_date_min: first_order_date
+    ecomm__order_items.count: lifetime_order_items
+    ecomm__order_items.sale_price_sum: lifetime_spend
+  base_view: ecomm__order_items
+  filters:
+    ecomm__order_items.status:
+      not: [ Cancelled, Returned ]
+  sorts:
+    - field: ecomm__order_items.user_id
+
+dimensions:
+  first_order_date: {}
+  lifetime_order_items: {}
+  lifetime_spend: {}
+
+  user_id:
+    primary_key: true
+
+measures:
+  count:
+    aggregate_type: count
+
+  lifetime_spend_average:
+    sql: ${user_order_facts.lifetime_spend}
+    aggregate_type: average
