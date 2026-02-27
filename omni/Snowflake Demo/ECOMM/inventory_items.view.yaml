@@ -43,6 +43,24 @@ dimensions:
     sql: '"PRODUCT_DISTRIBUTION_CENTER_ID"'
     format: ID
 
+  days_in_inventory:
+    sql: CASE WHEN TIMESTAMPADD(DAY, 1 * TIMESTAMPDIFF(DAY,
+      ${ecomm__inventory_items.created_at[date]},
+      ${ecomm__inventory_items.sold_at[date]}),
+      ${ecomm__inventory_items.created_at[date]}) <=
+      ${ecomm__inventory_items.sold_at[date]} THEN TIMESTAMPDIFF(DAY,
+      ${ecomm__inventory_items.created_at[date]},
+      ${ecomm__inventory_items.sold_at[date]}) ELSE TIMESTAMPDIFF(DAY,
+      ${ecomm__inventory_items.created_at[date]},
+      ${ecomm__inventory_items.sold_at[date]}) - 1 END
+    label: Days in Inventory
+
+  days_in_inventory_bin:
+    sql: ${ecomm__inventory_items.days_in_inventory}
+    bin_boundaries: [ 2, 42, 81 ]
+    bin_labels: [ Below 2, 2-42 days, 42-81 days, 81+ days ]
+    label: Days in Inventory Bins
+
 measures:
   count:
     aggregate_type: count

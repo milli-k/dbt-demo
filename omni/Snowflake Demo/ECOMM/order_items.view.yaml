@@ -56,6 +56,24 @@ dimensions:
   time_to_ship:
     sql: '"TIME_TO_SHIP"'
 
+  time_to_ship_bin:
+    sql: ${ecomm__order_items.time_to_ship}
+    bin_boundaries: [ 2, 5, 7 ]
+    bin_labels: [ Below 2, 2-5 days, 5-7 days, 7+ days ]
+    label: Time To Ship Bins
+
+  days_since_ordered:
+    sql: CASE WHEN TIMESTAMPADD(DAY, 1 * TIMESTAMPDIFF(DAY,
+      ${ecomm__order_items.created_at[date]}, CAST(DATE_TRUNC('DAY',
+      CAST(CURRENT_TIMESTAMP AS TIMESTAMP(0))) AS DATE)),
+      ${ecomm__order_items.created_at[date]}) <= CAST(DATE_TRUNC('DAY',
+      CAST(CURRENT_TIMESTAMP AS TIMESTAMP(0))) AS DATE) THEN TIMESTAMPDIFF(DAY,
+      ${ecomm__order_items.created_at[date]}, CAST(DATE_TRUNC('DAY',
+      CAST(CURRENT_TIMESTAMP AS TIMESTAMP(0))) AS DATE)) ELSE TIMESTAMPDIFF(DAY,
+      ${ecomm__order_items.created_at[date]}, CAST(DATE_TRUNC('DAY',
+      CAST(CURRENT_TIMESTAMP AS TIMESTAMP(0))) AS DATE)) - 1 END
+    label: Days Since Ordered
+
 measures:
   count:
     aggregate_type: count
@@ -83,4 +101,12 @@ measures:
     sql: ${ecomm__order_items.sale_price}
     label: Total Sale Price
     format: USDCURRENCY_2
+    aggregate_type: sum
+
+  time_to_ship_average:
+    sql: ${ecomm__order_items.time_to_ship}
+    aggregate_type: average
+
+  margin_sum:
+    sql: ${ecomm__order_items.margin}
     aggregate_type: sum
