@@ -6,61 +6,126 @@ dimensions:
   id:
     sql: '"ID"'
     format: ID
+    description: Unique surrogate key identifying each individual order item record.
     primary_key: true
+    ai_context: Use as the row-level identifier for order items. Do not aggregate or
+      sum this field.
 
   order_id:
     sql: '"ORDER_ID"'
     format: ID
+    description: Foreign key linking this order item to its parent order.
+    ai_context: Use to count or group by distinct orders. For 'number of orders'
+      questions, use order_id_count_distinct instead of count.
 
   user_id:
     sql: '"USER_ID"'
     format: ID
+    description: Foreign key identifying the customer who placed the order.
+    ai_context: Join to the users view to get customer details. Use to analyze
+      per-customer metrics.
 
   inventory_item_id:
     sql: '"INVENTORY_ITEM_ID"'
     format: ID
+    description: Foreign key referencing the specific inventory item (product
+      instance) associated with this order line.
+    ai_context: Join to the inventory_items view to get product details like cost
+      and category.
 
   sale_price:
     sql: '"SALE_PRICE"'
+    description: The price at which this item was sold to the customer.
+    ai_context: This is the revenue per item. For total revenue, use the
+      sale_price_sum measure. For average order value, divide sale_price_sum by
+      order_id_count_distinct.
 
   status:
     sql: '"STATUS"'
+    description: The fulfillment status of this order item (e.g., Complete,
+      Cancelled, Returned, Shipped).
+    ai_context: Filter by status to analyze specific fulfillment segments. Common
+      values are Complete, Cancelled, Returned, Shipped, and Processing.
 
   created_at:
     sql: '"CREATED_AT"'
+    description: Timestamp when this order item was created (i.e., when the order
+      was placed).
+    ai_context: Use for trending orders over time. This is the order placement date.
+      For shipping timelines, use shipped_at or the time_to_ship dimension.
 
   returned_at:
     sql: '"RETURNED_AT"'
+    description: Timestamp when this order item was returned by the customer, if
+      applicable. Null if not returned.
+    ai_context: Only populated for returned items. Use is_returned to filter for
+      returned items, and returned_at for return timing analysis.
 
   shipped_at:
     sql: '"SHIPPED_AT"'
+    description: Timestamp when this order item was shipped to the customer.
+    ai_context: Only populated once the item has shipped. Compare with created_at to
+      compute shipping delay, or use the time_to_ship dimension directly.
 
   delivered_at:
     sql: '"DELIVERED_AT"'
+    description: Timestamp when this order item was delivered to the customer.
+    ai_context: Only populated once the item is delivered. Use is_delivered to
+      filter for delivered items.
 
   is_returned:
     sql: '"IS_RETURNED"'
+    description: Boolean flag indicating whether this order item was returned by the
+      customer (true = returned).
+    ai_context: Use to filter for returned items. Return rate = count where
+      is_returned is true divided by total count.
 
   is_delivered:
     sql: '"IS_DELIVERED"'
+    description: Boolean flag indicating whether this order item has been delivered
+      to the customer (true = delivered).
+    ai_context: Use to filter for delivered items. Complements is_shipped and
+      is_returned for fulfillment funnel analysis.
 
   is_shipped:
     sql: '"IS_SHIPPED"'
+    description: Boolean flag indicating whether this order item has been shipped to
+      the customer (true = shipped).
+    ai_context: Use to filter for shipped items. The Shipped Order Count measure
+      already applies this filter automatically.
 
   margin:
     sql: '"MARGIN"'
+    description: The profit earned on this order item, calculated as sale price
+      minus the cost of the inventory item.
+    ai_context: For total profit, use the margin_sum measure. Positive values
+      indicate profit; negative values indicate a loss.
 
   months_since_signup:
     sql: '"MONTHS_SINCE_SIGNUP"'
+    description: Number of months elapsed between the customer's signup date and the
+      order placement date.
+    ai_context: Use to segment customers by tenure at time of purchase. Useful for
+      cohort analysis and understanding purchasing behavior across the customer
+      lifecycle.
 
   time_to_ship:
     sql: '"TIME_TO_SHIP"'
+    description: Number of days elapsed between the order placement date and the
+      shipment date.
+    ai_context: For average fulfillment speed across many orders, use the
+      time_to_ship_average measure. Lower values indicate faster fulfillment.
 
   time_to_ship_bin:
     sql: ${ecomm__order_items.time_to_ship}
     bin_boundaries: [ 2, 5, 7 ]
     bin_labels: [ Below 2, 2-5 days, 5-7 days, 7+ days ]
     label: Time To Ship Bins
+    description: Bucketed grouping of time_to_ship into predefined ranges (Below 2,
+      2-5 days, 5-7 days, 7+ days).
+    ai_context: Use for distribution analysis of shipping speed categories. Prefer
+      this over the raw time_to_ship dimension when visualizing shipping speed
+      buckets.
 
   days_since_ordered:
     sql: CASE WHEN TIMESTAMPADD(DAY, 1 * TIMESTAMPDIFF(DAY,
@@ -73,40 +138,66 @@ dimensions:
       ${ecomm__order_items.created_at[date]}, CAST(DATE_TRUNC('DAY',
       CAST(CURRENT_TIMESTAMP AS TIMESTAMP(0))) AS DATE)) - 1 END
     label: Days Since Ordered
+    description: Number of calendar days that have passed since the order item was
+      placed, calculated relative to today.
+    ai_context: Use for recency analysis of orders. This is a dynamic field computed
+      at query time relative to the current date, not a stored column.
 
 measures:
   count:
+    description: Total count of order item rows in the dataset.
     aggregate_type: count
+    ai_context: Use to count the number of order line items. For counting distinct
+      orders, use order_id_count_distinct instead.
 
   order_id_count_distinct_copy:
     sql: ${ecomm__order_items.order_id}
     label: Shipped Order Count
     format: NUMBER_0
+    description: Count of distinct order IDs where at least one item has been shipped.
     aggregate_type: count_distinct
     filters:
       is_shipped:
         is: true
+    ai_context: Use to answer 'how many orders have been shipped?' questions. This
+      is the shipped order count.
 
   order_id_count_distinct:
     sql: ${ecomm__order_items.order_id}
     label: Order ID Count
     format: NUMBER_0
+    description: Count of distinct order IDs across all order items, regardless of status.
     aggregate_type: count_distinct
+    ai_context: Use to count unique orders (not order lines). For shipped orders
+      only, use the Shipped Order Count measure (order_id_count_distinct_copy).
 
   created_at_date_min:
     sql: ${ecomm__order_items.created_at[date]}
+    description: The earliest order creation date in the result set.
     aggregate_type: min
+    ai_context: Use to find the date of the first order in a filtered cohort or time range.
 
   sale_price_sum:
     sql: ${ecomm__order_items.sale_price}
     label: Total Sale Price
     format: USDCURRENCY_2
+    description: Sum of sale prices across all order items — the primary total
+      revenue metric.
     aggregate_type: sum
+    ai_context: Use for 'total revenue', 'total sales', or 'gross revenue'
+      questions. This is the most common revenue measure.
 
   time_to_ship_average:
     sql: ${ecomm__order_items.time_to_ship}
+    description: Average number of days from order placement to shipment across all
+      qualifying order items.
     aggregate_type: average
+    ai_context: Use to answer 'how long does it take to ship?' or 'what is the
+      average fulfillment time?' questions.
 
   margin_sum:
     sql: ${ecomm__order_items.margin}
+    description: Total profit across all order items (sum of sale price minus item cost).
     aggregate_type: sum
+    ai_context: Use for total profitability analysis. Pair with sale_price_sum to
+      compute an overall margin percentage.
