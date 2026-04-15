@@ -5,59 +5,119 @@ table_name: USER
 dimensions:
   id:
     sql: '"ID"'
-    format: ID
+    description: Unique identifier for the user record.
     primary_key: true
+    ai_context: Primary key for the demo__user table. Use to join to other tables
+      that reference a user. Not meaningful to display to end users.
 
   first_name:
     sql: '"FIRST_NAME"'
+    description: The user's first name.
+    ai_context: First name of the user. Combine with last_name for full name
+      display. Useful for filtering or grouping by individual.
 
   last_name:
     sql: '"LAST_NAME"'
+    description: The user's last name.
+    ai_context: Last name of the user. Combine with first_name for full name display.
 
   email:
     sql: '"EMAIL"'
+    description: The user's email address.
+    ai_context: Email address used for login and communications. Can uniquely
+      identify a user.
 
   role:
     sql: '"ROLE"'
+    description: The user's job role.
+    ai_context: Job function of the user, e.g. Account Executive, Sales Manager,
+      SDR. Use to filter or segment performance metrics by role type.
 
   region:
     sql: '"REGION"'
+    description: The geographic sales region the user belongs to.
+    ai_context: Sales territory region, e.g. AMER, EMEA, APAC. Use to compare
+      performance across geographies.
 
   segment:
     sql: '"SEGMENT"'
+    description: The market segment the user sells into.
+    ai_context: Customer segment the rep is responsible for, e.g. SMB, Mid-Market,
+      Enterprise. Use to compare metrics across go-to-market motions.
 
   manager_id:
     sql: '"MANAGER_ID"'
-    format: ID
+    description: The ID of the user's direct manager.
+    ai_context: Foreign key referencing another user in demo__user (self-join). Use
+      to build rep-to-manager hierarchies or filter to a manager's book of
+      business.
 
   se_id:
     sql: '"SE_ID"'
-    format: ID
+    description: The ID of the Sales Engineer paired with this user.
+    ai_context: Foreign key to the associated Sales Engineer (SE) supporting this
+      rep. Use to understand SE coverage and attribution.
 
   quota_target:
     sql: '"QUOTA_TARGET"'
+    description: The user's current quota target.
+    ai_context: The active quota amount for the current period. Use this as the
+      primary quota field for attainment calculations unless a specific year is
+      requested.
 
   quota_2024:
     sql: '"QUOTA_2024"'
+    description: The user's annual sales quota for 2024.
+    ai_context: Dollar value of the rep's assigned quota for fiscal year 2024. Use
+      quota_target for current-year quota unless doing year-over-year
+      comparisons.
 
   quota_2025:
     sql: '"QUOTA_2025"'
+    description: The user's annual sales quota for 2025.
+    ai_context: Dollar value of the rep's assigned quota for fiscal year 2025. Use
+      quota_target for current-year quota unless doing year-over-year
+      comparisons.
 
   quota_2026:
     sql: '"QUOTA_2026"'
+    description: The user's annual sales quota for 2026.
+    ai_context: Dollar value of the rep's assigned quota for fiscal year 2026. The
+      most current quota year. Prefer quota_target for current-year quota unless
+      comparing across years.
 
   quota_attainment_pct:
     sql: '"QUOTA_ATTAINMENT_PCT"'
+    description: The user's quota attainment as a percentage.
+    ai_context: Ratio of closed revenue to quota_target, expressed as a percentage.
+      100% = fully on target. Primary metric for rep performance. Filter to
+      fully ramped reps (ramp_end_date in the past) for fair comparisons.
 
   performance_tier:
     sql: '"PERFORMANCE_TIER"'
+    description: The user's performance tier classification.
+    ai_context: Categorical performance rating, e.g. Top Performer, On Track, At
+      Risk. Typically derived from quota attainment. Use to segment or filter
+      performance analysis.
 
   created_date:
     sql: '"CREATED_DATE"'
+    description: The date the user account was created.
+    ai_context: Timestamp of when the user was added to the system. Useful for
+      cohort analysis, tenure calculations, and filtering by hire/onboarding
+      date.
 
   ramp_end_date:
     sql: '"RAMP_END_DATE"'
+    description: The date the user's ramp period ends.
+    ai_context: New hires have a ramp period during which quota expectations are
+      reduced. After this date the user is fully ramped. Compare with
+      created_date to calculate ramp duration. Filter to ramp_end_date in the
+      past for fair quota attainment comparisons.
 
 measures:
   count:
+    description: Count of users.
     aggregate_type: count
+    ai_context: Total number of user records matching the current filters. Useful
+      for headcount analysis and as a denominator in rate calculations.
