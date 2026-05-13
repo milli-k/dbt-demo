@@ -14,7 +14,7 @@ select
     order_items.shipped_at is not null as is_shipped,
     order_items.sale_price - inventory_items.cost as margin,
     datediff(month, users.created_at, order_items.created_at) as months_since_signup,
-    datediff('days', order_items.created_at, order_items.shipped_at) as time_to_ship
+    datediff('hours', order_items.created_at, order_items.shipped_at) as time_to_ship
 from {{ ref("int_ecomm__order_items") }} as order_items
 left join
     {{ ref("int_ecomm__inventory_items") }} as inventory_items
